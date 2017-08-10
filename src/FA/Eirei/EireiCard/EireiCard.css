@@ -1,0 +1,24 @@
+div#EireiCard {
+  float: left;
+  height: 300px;
+  width: auto;
+  vertical-align: middle;
+}
+
+div#avatar {
+  height: auto;
+  width: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  vertical-align: middle;
+  float: left;
+}
+
+div#EireiName {
+  text-align: center;
+}
+
+div#Attributes {
+  float: left;
+
+}

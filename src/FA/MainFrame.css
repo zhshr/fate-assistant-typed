@@ -1,0 +1,9 @@
+div#root div{
+  border: 1px black solid;
+  margin: 10px auto;
+  padding: 5px;
+}
+div#MainFrame {
+  height: 800px;
+  width: 1000px;
+}

@@ -1,20 +1,25 @@
 import * as React from 'react';
 import './App.css';
+import MainFrame from "./FA/MainFrame";
 
-const logo = require('./logo.svg');
 
 class App extends React.Component<{}, {}> {
+  state: {
+    value: string;
+  }
+
+  constructor() {
+    super();
+    this.state = {value: "0"};
+  }
+
+  onChange(newValue: string) {
+    this.state.value = newValue;
+  }
+
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
+      <MainFrame value={this.state.value} onChange={this.onChange.bind(this)}/>
     );
   }
 }
