@@ -1,5 +1,5 @@
 import * as React from 'react';
-import EireiTab from "./EireiTab";
+import EireiTab from './EireiTab';
 import "./EireiBar.css";
 
 class EireiBar extends React.Component {
