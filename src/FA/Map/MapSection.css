@@ -25,6 +25,7 @@ div.AreaMarker {
 
 div.ServantContainer {
     position: absolute;
+    line-height: 0px;
     width: 80px;
     left: -20px;
 }

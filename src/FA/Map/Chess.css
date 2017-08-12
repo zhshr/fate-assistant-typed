@@ -1,10 +1,10 @@
-div.ChessDivNotHighlighted {
+img.ChessDivNotHighlighted {
     width: "auto";
     text-align: center ;
-    background-color: rgba(0,0,255,0.5)
+    background-color: rgba(0,0,255,0.7);
 }
 
-div.ChessDivHighlighted {
+img.ChessDivHighlighted {
     width: "auto";
     text-align: center ;
     background-color: rgba(255,0,0,0.8);

@@ -71,18 +71,22 @@ class Map extends React.Component<MapProps, MapState> {
     result.addPoint(320, 440);
     result.addPoint(190, 430);
     result.addPoint(255, 390);
+
     result.addPoint(400, 385);
     result.addPoint(300, 320);
     result.addPoint(385, 275);
-    result.addPoint(295, 235);
 
+    result.addPoint(295, 205);
     result.addPoint(220, 170);
     result.addPoint(170, 285);
+
     result.addPoint(90, 190);
     result.addPoint(80, 65);
     result.addPoint(150, 130);
+
     result.addPoint(265, 45);
     result.addPoint(365, 150);
+
     result.addPoint(34, 340);
     return result;
   }

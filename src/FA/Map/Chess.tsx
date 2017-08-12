@@ -33,16 +33,16 @@ class Chess extends React.Component<ChessProps, {}> {
       height: "40px",
     };
     return (
-      <div className={
-        this.props.isHighlighted 
-        ? "ChessDivHighlighted"
-        : "ChessDivNotHighlighted"}>
         <img 
           src={this.props.data.image} 
           style={style} 
           onClick={this.props.toggleHighlight}
+          className={
+            this.props.isHighlighted 
+            ? "ChessDivHighlighted"
+            : "ChessDivNotHighlighted"
+          }
         />
-      </div>
     );
   }
 }
