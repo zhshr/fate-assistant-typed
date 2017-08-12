@@ -26,6 +26,7 @@ interface Point {
   y: number;
 }
 
+const mapScaleFactor = 1.5;
 class Coordinates {
   points: Array<Point>;
 
@@ -35,7 +36,8 @@ class Coordinates {
   }
 
   addPoint(mouseX: number, mouseY: number) {
-    this.points.push({x: mouseX, y: mouseY});
+
+    this.points.push({x: mouseX * mapScaleFactor, y: mouseY * mapScaleFactor});
   }
 }
 
@@ -73,6 +75,15 @@ class Map extends React.Component<MapProps, MapState> {
     result.addPoint(300, 320);
     result.addPoint(385, 275);
     result.addPoint(295, 235);
+
+    result.addPoint(220, 170);
+    result.addPoint(170, 285);
+    result.addPoint(90, 190);
+    result.addPoint(80, 65);
+    result.addPoint(150, 130);
+    result.addPoint(265, 45);
+    result.addPoint(365, 150);
+    result.addPoint(34, 340);
     return result;
   }
   _onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
@@ -83,13 +94,20 @@ class Map extends React.Component<MapProps, MapState> {
   }
 
   initialServants() {
-    this.pushChess(new ServantData("Test", "Archer"), 1);
-    this.pushChess(new ServantData("Test", "Archer"), 1);
+    let defaultLocation=15;
+    this.pushChess(new ServantData("Test", "Saber"), defaultLocation);
+    this.pushChess(new ServantData("Test", "Archer"), defaultLocation);
+    this.pushChess(new ServantData("Test", "Lancer"), defaultLocation);
+    this.pushChess(new ServantData("Test", "Rider"), defaultLocation);
+    this.pushChess(new ServantData("Test", "Berserker"), defaultLocation);
+    this.pushChess(new ServantData("Test", "Assassin"), defaultLocation);
+    this.pushChess(new ServantData("Test", "Caster"), defaultLocation);
+    this.pushChess(new ServantData("Test", "Avenger"), defaultLocation);
   }
 
   pushChess(servant: ServantData, location: number) {
-    this.state.Servants.push(new ServantData("Test", "Archer"));
-    this.state.ServantLocations.push(1);
+    this.state.Servants.push(servant);
+    this.state.ServantLocations.push(location);
   }
 
   onClick(i: number) {
@@ -106,6 +124,14 @@ class Map extends React.Component<MapProps, MapState> {
       );
     }
   }
+
+  getStyle(): React.CSSProperties {
+    return {
+      width: mapScaleFactor * 100 + "%",
+      height: mapScaleFactor * 100 + "%",
+    };
+  }
+
   public render() {
     let mapSections = [];
     for (let point_id in this.state.coord.points) {
@@ -129,9 +155,10 @@ class Map extends React.Component<MapProps, MapState> {
         />
       );
     }
+
     return (
       <div id="Map" onMouseMove={this._onMouseMove}> 
-        <img src={CampusMap} />
+        <img src={CampusMap} className="MapBackground"/>
         {mapSections}
         <br/>
         <span>{this.state.mouseX} , {this.state.mouseY}</span>

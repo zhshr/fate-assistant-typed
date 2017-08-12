@@ -1,5 +1,6 @@
 import * as React from 'react';
 import ServantData from './ServantData';
+import "./Chess.css";
 // import { DragSource } from 'react-dnd';
 // import {ItemTypes} from './DnDConstants';
 
@@ -26,20 +27,16 @@ interface ChessProps {
 
 // @DragSource(ItemTypes.SERVANT, servantSource, collect)
 class Chess extends React.Component<ChessProps, {}> {
-  getStyle(isHighlighted: boolean): React.CSSProperties {
-    return {
-      backgroundColor: isHighlighted?"red":"",
-      width: "auto",
-      textAlign: "middle"
-    };
-  }
   public render() {
     let style: React.CSSProperties = {
       width: "40px",
       height: "40px",
     };
     return (
-      <div style={this.getStyle(this.props.isHighlighted)}>
+      <div className={
+        this.props.isHighlighted 
+        ? "ChessDivHighlighted"
+        : "ChessDivNotHighlighted"}>
         <img 
           src={this.props.data.image} 
           style={style} 

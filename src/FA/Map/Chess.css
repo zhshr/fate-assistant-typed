@@ -1,0 +1,11 @@
+div.ChessDivNotHighlighted {
+    width: "auto";
+    text-align: center ;
+    background-color: rgba(0,0,255,0.5)
+}
+
+div.ChessDivHighlighted {
+    width: "auto";
+    text-align: center ;
+    background-color: rgba(255,0,0,0.8);
+}

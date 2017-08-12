@@ -2,3 +2,8 @@ div#Map {
     float: left;
     position: relative;
 }
+
+img.MapBackground {
+    width: 150%;
+    height: 150%;
+}

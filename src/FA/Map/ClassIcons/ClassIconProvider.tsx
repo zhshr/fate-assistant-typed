@@ -1,10 +1,15 @@
-const ArcherGold = require('./Archer-Gold.png');
+// const ArcherGold = require('./Archer-Gold.png');
+// const AssassinGold = require('./Assassin-Gold.png');
+// const SaberGold = require('./Saber-Gold.png');
+// const AssassinGold = require('./Assassin-Gold.png');
+// const AssassinGold = require('./Assassin-Gold.png');
+// const AssassinGold = require('./Assassin-Gold.png');
+// const AssassinGold = require('./Assassin-Gold.png');
+// const AssassinGold = require('./Assassin-Gold.png');
+// const AssassinGold = require('./Assassin-Gold.png');
 
 export default class ClassIconProvider {
     static get(className: string, rarity: string) {
-        switch (className) {
-            case "Archer":
-                return ArcherGold;
-        }
+        return require("./" + className + "-Gold.png");
     }
 }

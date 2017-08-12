@@ -22,6 +22,14 @@ class MapSection extends React.Component<MapSectionProps, MapSectionState> {
             top: y   // computed based on child and parent's width
             };
     }
+
+    getServantStyle(index: number): React.CSSProperties {
+        return {
+            position: "absolute",
+            left: index%2 == 0 ? "0px" : "40px"
+        }
+    }
+
     public render() {
         let servants = [];
         for (let servant_id in this.props.chess) {                      
@@ -36,12 +44,12 @@ class MapSection extends React.Component<MapSectionProps, MapSectionState> {
             );
         }
         let divElement  = (
-            <div 
+            <div
                 style={this.getStyle(this.props.x, this.props.y)} 
-                className="MapSection"
-                onClick={this.props.onClick}
-            >
-                #{this.props.area_id}
+                className="MapSection">
+                <div onClick={this.props.onClick} className="AreaMarker">
+                    {this.props.area_id < 15 ? this.props.area_id : "DEAD"}
+                </div>
                 <div className="ServantContainer">
                     {servants}
                 </div>

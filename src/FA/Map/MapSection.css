@@ -1,19 +1,33 @@
 div.MapSection {
+    border: none !important;
     position: absolute;
-    background-color: green;
     height: 20px;
-    width: 20px;
+    width: 0px;
     margin-top: -10px;
     margin-left: -10px;
 }
 
-div.ServantContainer{
+div.MapSection div{
     display: inline-block;
     margin: 0px !important;
     padding: 0px !important;
     border: none !important;
 }
 
+div.AreaMarker {
+    width: auto;
+    background-color: #47E62D;
+    min-width: 30px;
+    min-height: 30px;
+    text-align: center;
+    line-height: 30px;
+}
+
+div.ServantContainer {
+    position: absolute;
+    width: 80px;
+    left: -20px;
+}
 div.ServantContainer div{
     display: inline-block;
     margin: 0px !important;
