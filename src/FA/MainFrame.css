@@ -1,9 +1,10 @@
 div#root div{
   border: 1px black solid;
-  margin: 10px auto;
-  padding: 5px;
+  margin: 3px;
+  padding: 3px;
 }
 div#MainFrame {
   height: 800px;
-  width: 1000px;
+  width: 1400px;
+  margin: 10px auto;
 }
