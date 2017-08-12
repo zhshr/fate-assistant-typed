@@ -3,13 +3,22 @@ import './Map.css';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import MapSection from './MapSection';
+import ServantData from './ServantData';
+
 const CampusMap = require('./CampusMap.png');
 
+/*************DND Start */
+
+/*************DND Stop */
 interface MapProps {}
 
 interface MapState {
+  coord: Coordinates;
   mouseX: number;
   mouseY: number;
+  Servants: Array<ServantData>;
+  ServantLocations: Array<number>;
+  highlighted: number;
 }
 
 interface Point {
@@ -34,7 +43,25 @@ class Map extends React.Component<MapProps, MapState> {
   constructor(props: MapProps) {
     super(props);
     this._onMouseMove = this._onMouseMove.bind(this);
-    this.state = {mouseX: 0, mouseY: 0};
+    this.state = {
+      coord: this.getDefaultMapCoordinates(),
+      mouseX: 0, 
+      mouseY: 0, 
+      Servants:[], 
+      ServantLocations:[],
+      highlighted: -1,
+    };
+    this.initialServants = this.initialServants.bind(this);
+    this.pushChess = this.pushChess.bind(this);
+    this.setHighlight = this.setHighlight.bind(this);
+    this.onClick = this.onClick.bind(this);
+    this.initialServants();    
+  }
+
+  setHighlight(i: number) {
+    this.setState(
+      {highlighted: this.state.highlighted == i? -1 : i}
+    );
   }
 
   getDefaultMapCoordinates(): Coordinates {
@@ -55,12 +82,51 @@ class Map extends React.Component<MapProps, MapState> {
     });
   }
 
+  initialServants() {
+    this.pushChess(new ServantData("Test", "Archer"), 1);
+    this.pushChess(new ServantData("Test", "Archer"), 1);
+  }
+
+  pushChess(servant: ServantData, location: number) {
+    this.state.Servants.push(new ServantData("Test", "Archer"));
+    this.state.ServantLocations.push(1);
+  }
+
+  onClick(i: number) {
+    if (this.state.highlighted != -1) {
+      let newLocations = this.state.ServantLocations;
+      newLocations[this.state.highlighted] = i + 1;
+      console.log(this.state.ServantLocations);
+      console.log(newLocations);
+      this.setState(
+        {
+          highlighted: -1,
+          ServantLocations: newLocations
+        }
+      );
+    }
+  }
   public render() {
-    let cord = this.getDefaultMapCoordinates();
     let mapSections = [];
-    for (let point of cord.points) {
+    for (let point_id in this.state.coord.points) {
+      let chessAtHere: Array<ServantData> = [];
+      for (let servant_id in this.state.ServantLocations) {        
+        if (this.state.ServantLocations[servant_id] - 1 == (Number)(point_id)) {          
+          chessAtHere[servant_id]=this.state.Servants[servant_id];
+        }
+      }
+
+      let point = this.state.coord.points[point_id];
       mapSections.push(
-        <MapSection x={point.x} y={point.y} chess={[]}/>
+        <MapSection 
+          x={point.x - 20} 
+          y={point.y - 15} 
+          chess={chessAtHere} 
+          area_id={Number(point_id)+1}
+          highlighted={this.state.highlighted}
+          toggleHighlight={this.setHighlight}
+          onClick={()=>this.onClick((Number)(point_id))}
+        />
       );
     }
     return (
@@ -69,6 +135,10 @@ class Map extends React.Component<MapProps, MapState> {
         {mapSections}
         <br/>
         <span>{this.state.mouseX} , {this.state.mouseY}</span>
+        {/* <Chess 
+          name="test" 
+          image={ClassIconProvider.get("Archer","")}
+          /> */}
       </div>
     );
   }
