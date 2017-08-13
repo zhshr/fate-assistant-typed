@@ -14,8 +14,6 @@ const requestHandler = (request, response) => {
     var url_parts = url.parse(request.url, true);
     var query = url_parts.query;
 
-    console.log(url_parts);
-
     switch (url_parts.pathname) {
         case '/pull':
             console.log("Response: " + database[query.dataName]);
