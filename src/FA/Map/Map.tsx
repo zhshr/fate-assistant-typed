@@ -5,12 +5,16 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import MapSection from './MapSection';
 import ServantData from './ServantData';
 
+import SynchronizeUtils from '../SynchronizeUtils/SynchronizeUtils';
+
 const CampusMap = require('./CampusMap.png');
 
 /*************DND Start */
 
 /*************DND Stop */
-interface MapProps {}
+interface MapProps {
+  master: boolean;
+}
 
 interface MapState {
   coord: Coordinates;
@@ -126,6 +130,7 @@ class Map extends React.Component<MapProps, MapState> {
           ServantLocations: newLocations
         }
       );
+      SynchronizeUtils.send('mapStatus', this.state.ServantLocations, ()=>{});
     }
   }
 

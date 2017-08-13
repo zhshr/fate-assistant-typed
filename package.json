@@ -9,11 +9,13 @@
     "@types/react-dnd": "^2.0.33",
     "@types/react-dnd-html5-backend": "^2.1.8",
     "@types/react-dom": "^15.5.2",
+    "@types/react-router-dom": "^4.0.7",
     "react": "^15.6.1",
     "react-dnd": "^2.4.0",
     "react-dnd-html5-backend": "^2.4.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
+    "react-router-dom": "^4.1.2",
     "react-scripts-ts": "2.5.0",
     "redux": "^3.7.2"
   },
@@ -25,5 +27,6 @@
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject"
-  }
+  },
+  "proxy": "http://localhost:3002"
 }

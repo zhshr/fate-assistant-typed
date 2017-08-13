@@ -1,6 +1,5 @@
 import * as React from 'react';
 import './MainFrame.css';
-import ButtonWithSingleFunction from './ButtonWithSingleFunction';
 import EireiFrame from './Eirei/EireiFrame';
 import * as EireiData from './Eirei/EireiData/EireiData';
 import Map from './Map/Map';
@@ -14,19 +13,15 @@ class MainFrame extends React.Component {
   props: {
     value: string;
     onChange: (value: string) => void;
+    master: boolean;
   };
 
   render() {
     return (
       <div id="MainFrame">
-        {this.props.value}
-        <ButtonWithSingleFunction
-          name="test"
-          value={this.props.value}
-          onClick={this.props.onChange}
-        />
+        {this.props.master ? "Master App" : "Slave App"}
         <EireiFrame />
-        <Map />
+        <Map master={this.props.master}/>
       </div>
     );
   }
