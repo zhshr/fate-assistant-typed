@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import * as React from 'react';
 import './Map.css';
 import { DragDropContext } from 'react-dnd';
@@ -181,7 +180,6 @@ class Map extends React.Component<MapProps, MapState> {
   }
 }
 
-=======
 import * as React from 'react';
 import './Map.css';
 import { DragDropContext } from 'react-dnd';
@@ -382,5 +380,4 @@ class Map extends React.Component<MapProps, MapState> {
   }
 }
 
->>>>>>> f510df8... 11111
 export default DragDropContext(HTML5Backend)(Map);
