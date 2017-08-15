@@ -3,6 +3,7 @@ import './MainFrame.css';
 import EireiFrame from './Eirei/EireiFrame';
 import * as EireiData from './Eirei/EireiData/EireiData';
 import Map from './Map/Map';
+import LatencyDisplay from './SynchronizeUtils/LatencyDisplay';
 
 class MainFrame extends React.Component {
 
@@ -22,6 +23,7 @@ class MainFrame extends React.Component {
         {this.props.master ? "Master App" : "Slave App"}
         <EireiFrame />
         <Map master={this.props.master}/>
+        <LatencyDisplay />
       </div>
     );
   }

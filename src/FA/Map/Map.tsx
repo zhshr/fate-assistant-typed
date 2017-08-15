@@ -53,8 +53,8 @@ class Map extends React.Component<MapProps, MapState> {
       coord: this.getDefaultMapCoordinates(),
       mouseX: 0, 
       mouseY: 0, 
-      Servants:[], 
-      ServantLocations:[],
+      Servants: [], 
+      ServantLocations: [],
       highlighted: -1,
     };
     this.initialServants = this.initialServants.bind(this);
@@ -67,13 +67,18 @@ class Map extends React.Component<MapProps, MapState> {
     if (!this.props.master) {
       this.updateStateFromServer();
     } else {
-      SynchronizeUtils.send('mapStatus', this.state.ServantLocations, ()=>{});
+      SynchronizeUtils.send(
+        'mapStatus', 
+        this.state.ServantLocations, () => {
+          //
+        },
+        () => {}
+      );
     }
   }
 
   updateStateFromServer() {
     SynchronizeUtils.receive('mapStatus', (response) => {
-      console.log(response);
       let data = JSON.parse(response.data);
       this.setState(
         {
@@ -81,12 +86,14 @@ class Map extends React.Component<MapProps, MapState> {
         }
       );
       setTimeout(this.updateStateFromServer, 3000);
-    })
+    },
+      () => {}
+    );
   }
 
   setHighlight(i: number) {
     this.setState(
-      {highlighted: this.state.highlighted == i? -1 : i}
+      {highlighted: this.state.highlighted === i ? -1 : i}
     );
   }
 
@@ -122,15 +129,15 @@ class Map extends React.Component<MapProps, MapState> {
   }
 
   initialServants() {
-    let defaultLocation=15;
-    this.pushChess(new ServantData("Test", "Saber"), defaultLocation);
-    this.pushChess(new ServantData("Test", "Archer"), defaultLocation);
-    this.pushChess(new ServantData("Test", "Lancer"), defaultLocation);
-    this.pushChess(new ServantData("Test", "Rider"), defaultLocation);
-    this.pushChess(new ServantData("Test", "Berserker"), defaultLocation);
-    this.pushChess(new ServantData("Test", "Assassin"), defaultLocation);
-    this.pushChess(new ServantData("Test", "Caster"), defaultLocation);
-    this.pushChess(new ServantData("Test", "Avenger"), defaultLocation);
+    let defaultLocation = 15;
+    this.pushChess(new ServantData('Test', 'Saber'), defaultLocation);
+    this.pushChess(new ServantData('Test', 'Archer'), defaultLocation);
+    this.pushChess(new ServantData('Test', 'Lancer'), defaultLocation);
+    this.pushChess(new ServantData('Test', 'Rider'), defaultLocation);
+    this.pushChess(new ServantData('Test', 'Berserker'), defaultLocation);
+    this.pushChess(new ServantData('Test', 'Assassin'), defaultLocation);
+    this.pushChess(new ServantData('Test', 'Caster'), defaultLocation);
+    this.pushChess(new ServantData('Test', 'Avenger'), defaultLocation);
   }
 
   pushChess(servant: ServantData, location: number) {
@@ -139,11 +146,9 @@ class Map extends React.Component<MapProps, MapState> {
   }
 
   onClick(i: number) {
-    if (this.state.highlighted != -1) {
+    if (this.state.highlighted !== -1) {
       let newLocations = this.state.ServantLocations;
       newLocations[this.state.highlighted] = i + 1;
-      console.log(this.state.ServantLocations);
-      console.log(newLocations);
       this.setState(
         {
           highlighted: -1,
@@ -151,38 +156,45 @@ class Map extends React.Component<MapProps, MapState> {
         }
       );
       if (this.props.master) {
-        SynchronizeUtils.send('mapStatus', this.state.ServantLocations, ()=>{});
+        SynchronizeUtils.send(
+          'mapStatus',
+          this.state.ServantLocations, () => {
+            //
+          },
+          () => {}
+        );
       }
     }
   }
 
   getStyle(): React.CSSProperties {
     return {
-      width: mapScaleFactor * 100 + "%",
-      height: mapScaleFactor * 100 + "%",
+      width: mapScaleFactor * 100 + '%',
+      height: mapScaleFactor * 100 + '%',
     };
   }
 
   public render() {
     let mapSections = [];
-    for (let point_id in this.state.coord.points) {
+    // tslint:disable-next-line:forin
+    for (let pointId in this.state.coord.points) {
       let chessAtHere: Array<ServantData> = [];
-      for (let servant_id in this.state.ServantLocations) {        
-        if (this.state.ServantLocations[servant_id] - 1 == (Number)(point_id)) {          
-          chessAtHere[servant_id]=this.state.Servants[servant_id];
+      for (let servantId in this.state.ServantLocations) {        
+        if (this.state.ServantLocations[servantId] - 1 === (Number)(pointId)) {          
+          chessAtHere[servantId] = this.state.Servants[servantId];
         }
       }
 
-      let point = this.state.coord.points[point_id];
+      let point = this.state.coord.points[pointId];
       mapSections.push(
         <MapSection 
           x={point.x - 20} 
           y={point.y - 15} 
           chess={chessAtHere} 
-          area_id={Number(point_id)+1}
+          area_id={Number(pointId) + 1}
           highlighted={this.state.highlighted}
           toggleHighlight={this.setHighlight}
-          onClick={()=>this.onClick((Number)(point_id))}
+          onClick={() => this.onClick((Number)(pointId))}
         />
       );
     }

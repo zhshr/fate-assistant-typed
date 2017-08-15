@@ -1,0 +1,13 @@
+div#LatencyDisplay {
+    height: 20px;
+    width: 100px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+div#LatencyBox {
+    float: left;
+    width:10px;
+    height:10px;
+    padding: 0px;
+}

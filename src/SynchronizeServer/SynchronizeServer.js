@@ -6,11 +6,15 @@ var database = {};
 
 const requestHandler = (request, response) => {
     console.log();
-    console.log();
 
     console.log(request.url);
     console.log(request.method);
 
+    if (request.url == "/heartbeat") {
+        response.end();
+        return;
+    }
+    
     var url_parts = url.parse(request.url, true);
     var query = url_parts.query;
 
