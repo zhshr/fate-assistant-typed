@@ -1,14 +1,14 @@
 import * as React from 'react';
-import "./LatencyDisplay.css";
+import './LatencyDisplay.css';
 import SynchronizeUtils from './SynchronizeUtils';
 
-interface LatencyDisplayProps {};
+interface LatencyDisplayProps {}
 
 interface LatencyDisplayState {
     latency: number;
-};
+}
 
-class LatencyDisplay extends React.Component<LatencyDisplayProps,LatencyDisplayState> {
+class LatencyDisplay extends React.Component<LatencyDisplayProps, LatencyDisplayState> {
     
     constructor() {
         super();
@@ -24,7 +24,7 @@ class LatencyDisplay extends React.Component<LatencyDisplayProps,LatencyDisplayS
             (response) => {
                 let tock = Date.now();
                 this.setState({
-                    latency: (tock-tick),
+                    latency: (tock - tick),
                 });
                 setTimeout(this.testLatency, 2000);
             },
@@ -36,7 +36,7 @@ class LatencyDisplay extends React.Component<LatencyDisplayProps,LatencyDisplayS
     render() {
         return (
             <div id="LatencyDisplay">
-                <div id="LatencyBox"></div>
+                <div id="LatencyBox"/>
                 {this.state.latency}ms
             </div>
         );

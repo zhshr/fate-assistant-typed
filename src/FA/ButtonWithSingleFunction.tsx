@@ -1,13 +1,13 @@
 import * as React from 'react';
 
 class ButtonWithSingleFunction extends React.Component {
-  props : {
+  props: {
     name: string;
     value: string,
     onClick: (value: string) => void;
-  }
+  };
 
-  constructor(props: any) {
+  constructor(props: {}) {
     super(props);
     this.click = this.click.bind(this);
   }

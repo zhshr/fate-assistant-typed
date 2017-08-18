@@ -8,7 +8,7 @@ import LatencyDisplay from './SynchronizeUtils/LatencyDisplay';
 class MainFrame extends React.Component {
 
   state: {
-    testEirei: EireiData.baseData;
+    testEirei: EireiData.BaseData;
   };
 
   props: {
@@ -20,7 +20,7 @@ class MainFrame extends React.Component {
   render() {
     return (
       <div id="MainFrame">
-        {this.props.master ? "Master App" : "Slave App"}
+        {this.props.master ? 'Master App' : 'Slave App'}
         <EireiFrame />
         <Map master={this.props.master}/>
         <LatencyDisplay />

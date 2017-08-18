@@ -72,22 +72,26 @@ class Map extends React.Component<MapProps, MapState> {
         this.state.ServantLocations, () => {
           //
         },
-        () => {}
+        () => {
+          //
+        }
       );
     }
   }
 
   updateStateFromServer() {
-    SynchronizeUtils.receive('mapStatus', (response) => {
-      let data = JSON.parse(response.data);
-      this.setState(
-        {
-          ServantLocations: data,
-        }
-      );
-      setTimeout(this.updateStateFromServer, 3000);
-    },
-      () => {}
+    SynchronizeUtils.receive(
+      'mapStatus', 
+      (response) => {
+        let data = JSON.parse(response.data);
+        this.setState(
+          {
+            ServantLocations: data,
+          }
+        );
+        setTimeout(this.updateStateFromServer, 3000);
+      },
+      () => {/**/}
     );
   }
 
@@ -161,7 +165,9 @@ class Map extends React.Component<MapProps, MapState> {
           this.state.ServantLocations, () => {
             //
           },
-          () => {}
+          () => {
+            //
+          }
         );
       }
     }

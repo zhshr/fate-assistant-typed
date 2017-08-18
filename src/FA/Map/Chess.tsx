@@ -1,6 +1,6 @@
 import * as React from 'react';
 import ServantData from './ServantData';
-import "./Chess.css";
+import './Chess.css';
 // import { DragSource } from 'react-dnd';
 // import {ItemTypes} from './DnDConstants';
 
@@ -29,8 +29,8 @@ interface ChessProps {
 class Chess extends React.Component<ChessProps, {}> {
   public render() {
     let style: React.CSSProperties = {
-      width: "40px",
-      height: "40px",
+      width: '40px',
+      height: '40px',
     };
     return (
         <img 
@@ -39,8 +39,8 @@ class Chess extends React.Component<ChessProps, {}> {
           onClick={this.props.toggleHighlight}
           className={
             this.props.isHighlighted 
-            ? "ChessDivHighlighted"
-            : "ChessDivNotHighlighted"
+            ? 'ChessDivHighlighted'
+            : 'ChessDivNotHighlighted'
           }
         />
     );

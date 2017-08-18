@@ -1,16 +1,16 @@
 import * as React from 'react';
-import "./EireiCard.css";
-import * as EireiData from "../EireiData/EireiData";
-import AttributeCard from "./AttributeCard";
-import SkillCard from "./SkillCard";
+import './EireiCard.css';
+import * as EireiData from '../EireiData/EireiData';
+import AttributeCard from './AttributeCard';
+import SkillCard from './SkillCard';
 
-const avatarImage = require("../../images/avatar.jpg");
+const avatarImage = require('../../images/avatar.jpg');
 
 class EireiCard extends React.Component {
   props: {
     name: string;
-    data: EireiData.baseData;
-  }
+    data: EireiData.BaseData;
+  };
 
   render() {
     let attribute: Array<JSX.Element> = [];
@@ -20,11 +20,12 @@ class EireiCard extends React.Component {
       );
     }
     let skills: Array<JSX.Element> = [];
-    for (let skill_id in this.props.data.skills) {
+    for (let skillId in this.props.data.skills) {
       skills.push(
         <SkillCard
-          skill={this.props.data.skills[skill_id]}
-          onInvoke={this.props.data.skills[skill_id].invoke}/>
+          skill={this.props.data.skills[skillId]}
+          onInvoke={this.props.data.skills[skillId].invoke}
+        />
       );
     }
     return (

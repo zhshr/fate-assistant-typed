@@ -4,6 +4,6 @@ export default class ServantData {
     image: string;
     constructor(name: string, className: string) {
         this.name = name;
-        this.image = ClassIconProvider.get(className, "gold");
+        this.image = ClassIconProvider.get(className, 'gold');
     }
 }

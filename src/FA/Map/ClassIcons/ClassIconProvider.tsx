@@ -10,6 +10,6 @@
 
 export default class ClassIconProvider {
     static get(className: string, rarity: string) {
-        return require("./" + className + "-Gold.png");
+        return require('./' + className + '-Gold.png');
     }
 }

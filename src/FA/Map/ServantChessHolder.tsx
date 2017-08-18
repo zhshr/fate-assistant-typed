@@ -3,8 +3,8 @@ import ServantData from './ServantData';
 
 interface ServantChessHolderProps {
     ServantChess: ServantData;
-};
-interface ServantChessHolderState {};
+}
+interface ServantChessHolderState {}
 
 class ServantChessHolder extends React.Component<ServantChessHolderProps, ServantChessHolderState> {
     public render() {

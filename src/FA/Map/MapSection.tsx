@@ -25,20 +25,20 @@ class MapSection extends React.Component<MapSectionProps, MapSectionState> {
 
     getServantStyle(index: number): React.CSSProperties {
         return {
-            position: "absolute",
-            left: index%2 == 0 ? "0px" : "40px"
-        }
+            position: 'absolute',
+            left: index % 2 === 0 ? '0px' : '40px'
+        };
     }
 
     public render() {
         let servants = [];
-        for (let servant_id in this.props.chess) {                      
+        for (let servantId in this.props.chess) {                      
             servants.push(
                 <Chess 
-                    data={this.props.chess[servant_id]} 
-                    isHighlighted={(Number)(servant_id) == this.props.highlighted ? true : false}
-                    toggleHighlight= {
-                        ()=>this.props.toggleHighlight((Number)(servant_id))
+                    data={this.props.chess[servantId]} 
+                    isHighlighted={(Number)(servantId) === this.props.highlighted ? true : false}
+                    toggleHighlight={
+                        () => this.props.toggleHighlight((Number)(servantId))
                     }
                 />
             );
@@ -46,9 +46,10 @@ class MapSection extends React.Component<MapSectionProps, MapSectionState> {
         let divElement  = (
             <div
                 style={this.getStyle(this.props.x, this.props.y)} 
-                className="MapSection">
+                className="MapSection"
+            >
                 <div onClick={this.props.onClick} className="AreaMarker">
-                    {this.props.area_id < 15 ? this.props.area_id : "DEAD"}
+                    {this.props.area_id < 15 ? this.props.area_id : 'DEAD'}
                 </div>
                 <div className="ServantContainer">
                     {servants}

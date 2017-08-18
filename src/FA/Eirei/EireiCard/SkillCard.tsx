@@ -1,13 +1,13 @@
 import * as React from 'react';
-import "./SkillCard.css";
-import * as EireiData from "../EireiData/EireiData";
-import ButtonWithSingleFunction from "../../ButtonWithSingleFunction";
+import './SkillCard.css';
+import * as EireiData from '../EireiData/EireiData';
+import ButtonWithSingleFunction from '../../ButtonWithSingleFunction';
 
 class SkillCard extends React.Component {
   props: {
     skill: EireiData.Skill;
     onInvoke: () => void;
-  }
+  };
 
   render() {
     return (
