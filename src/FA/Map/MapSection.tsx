@@ -49,7 +49,7 @@ class MapSection extends React.Component<MapSectionProps, MapSectionState> {
                 className="MapSection"
             >
                 <div onClick={this.props.onClick} className="AreaMarker">
-                    {this.props.area_id < 15 ? this.props.area_id : 'DEAD'}
+                    {this.props.area_id < 16 ? this.props.area_id : 'DEAD'}
                 </div>
                 <div className="ServantContainer">
                     {servants}

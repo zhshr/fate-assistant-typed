@@ -7,7 +7,7 @@ import ServantData from './ServantData';
 
 import SynchronizeUtils from '../SynchronizeUtils/SynchronizeUtils';
 
-const CampusMap = require('./CampusMap.png');
+const CampusMap = require('./CampusMapNew.jpg');
 
 /*************DND Start */
 
@@ -113,7 +113,7 @@ class Map extends React.Component<MapProps, MapState> {
 
     result.addPoint(295, 205);
     result.addPoint(220, 170);
-    result.addPoint(170, 285);
+    result.addPoint(140, 285);
 
     result.addPoint(90, 190);
     result.addPoint(80, 65);
@@ -121,6 +121,7 @@ class Map extends React.Component<MapProps, MapState> {
 
     result.addPoint(265, 45);
     result.addPoint(365, 150);
+    result.addPoint(220, 250);
 
     result.addPoint(34, 340);
     return result;
@@ -133,7 +134,7 @@ class Map extends React.Component<MapProps, MapState> {
   }
 
   initialServants() {
-    let defaultLocation = 15;
+    let defaultLocation = 16;
     this.pushChess(new ServantData('Test', 'Saber'), defaultLocation);
     this.pushChess(new ServantData('Test', 'Archer'), defaultLocation);
     this.pushChess(new ServantData('Test', 'Lancer'), defaultLocation);
@@ -141,7 +142,7 @@ class Map extends React.Component<MapProps, MapState> {
     this.pushChess(new ServantData('Test', 'Berserker'), defaultLocation);
     this.pushChess(new ServantData('Test', 'Assassin'), defaultLocation);
     this.pushChess(new ServantData('Test', 'Caster'), defaultLocation);
-    this.pushChess(new ServantData('Test', 'Avenger'), defaultLocation);
+    this.pushChess(new ServantData('Test', 'Ruler'), defaultLocation);
   }
 
   pushChess(servant: ServantData, location: number) {
