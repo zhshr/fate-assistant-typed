@@ -2,6 +2,8 @@ import * as React from 'react';
 import './App.css';
 import MainFrame from './FA/MainFrame';
 import {BrowserRouter as Router, Route } from 'react-router-dom';
+import TitleDialog from './Title/TitleDialog';
+import { Grid, Row } from 'react-bootstrap';
 
 class App extends React.Component<{}, {}> {
   state: {
@@ -20,6 +22,12 @@ class App extends React.Component<{}, {}> {
     this.state.value = newValue;
   }
 
+  titleComponent() {
+    return (
+      <TitleDialog />
+    );
+  }
+
   masterComponent() {
     return (
       <MainFrame value={this.state.value} onChange={this.onChange} master={true}/>
@@ -34,10 +42,13 @@ class App extends React.Component<{}, {}> {
   render() {
     return (
       <Router>
-        <div>
-          <Route exact={true} path="/" component={this.slaveComponent}/>
-          <Route path="/master" component={this.masterComponent}/>
-        </div>
+        <Grid id="Container">
+          <Row>
+            <Route exact={true} path="/" component={this.titleComponent}/>
+            <Route path="/master" component={this.masterComponent}/>
+            <Route path="/slave" component={this.slaveComponent}/>
+          </Row>
+        </Grid>
       </Router>
     );
   }
