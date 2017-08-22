@@ -3,7 +3,7 @@ import './App.css';
 import MainFrame from './FA/MainFrame';
 import {BrowserRouter as Router, Route } from 'react-router-dom';
 import TitleDialog from './Title/TitleDialog';
-import { Grid, Row } from 'react-bootstrap';
+import { Grid } from 'react-bootstrap';
 
 class App extends React.Component<{}, {}> {
   state: {
@@ -43,11 +43,9 @@ class App extends React.Component<{}, {}> {
     return (
       <Router>
         <Grid id="Container">
-          <Row>
             <Route exact={true} path="/" component={this.titleComponent}/>
             <Route path="/master" component={this.masterComponent}/>
             <Route path="/slave" component={this.slaveComponent}/>
-          </Row>
         </Grid>
       </Router>
     );

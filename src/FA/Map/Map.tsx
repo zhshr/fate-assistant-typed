@@ -1,9 +1,8 @@
 import * as React from 'react';
 import './Map.css';
-import { DragDropContext } from 'react-dnd';
-import HTML5Backend from 'react-dnd-html5-backend';
 import MapSection from './MapSection';
 import ServantData from './ServantData';
+import {  Panel } from 'react-bootstrap';
 
 import SynchronizeUtils from '../SynchronizeUtils/SynchronizeUtils';
 
@@ -176,8 +175,8 @@ class Map extends React.Component<MapProps, MapState> {
 
   getStyle(): React.CSSProperties {
     return {
-      width: mapScaleFactor * 100 + '%',
-      height: mapScaleFactor * 100 + '%',
+      width: mapScaleFactor * 500 + 'px',
+      height: mapScaleFactor * 500 + 'px',
     };
   }
 
@@ -207,18 +206,18 @@ class Map extends React.Component<MapProps, MapState> {
     }
 
     return (
-      <div id="Map" onMouseMove={this._onMouseMove}> 
-        <img src={CampusMap} className="MapBackground"/>
-        {mapSections}
-        <br/>
-        <span>{this.state.mouseX} , {this.state.mouseY}</span>
-        {/* <Chess 
-          name="test" 
-          image={ClassIconProvider.get("Archer","")}
-          /> */}
-      </div>
+      //<Col xs={4}>
+        <Panel id="mapPanel" className="panel-modest" header="Real-time Map">
+          <div id="Map"> 
+            <img src={CampusMap} className="MapBackground" style={this.getStyle()}/>
+            {mapSections}
+            <br />
+          </div>
+          <span>{this.state.mouseX} , {this.state.mouseY}</span>
+        </Panel>
+      //</Col>
     );
   }
 }
 
-export default DragDropContext(HTML5Backend)(Map);
+export default Map;

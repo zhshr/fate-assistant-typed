@@ -2,9 +2,17 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  padding-top: 60px;
 }
 
 div#root {
   height: 100%;
   width: 100%;
+}
+
+#modest,
+#modest .panel-body,
+.panel-modest,
+.panel-modest .panel-body {
+  display: inline-block;
 }
