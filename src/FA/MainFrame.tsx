@@ -1,5 +1,5 @@
 import * as React from 'react';
-//import './MainFrame.css';
+// import './MainFrame.css';
 import EireiFrame from './Eirei/EireiFrame';
 import * as EireiData from './Eirei/EireiData/EireiData';
 import Map from './Map/Map';
@@ -21,7 +21,7 @@ class MainFrame extends React.Component {
 
   navBar() {
     return (
-      <Navbar fixedTop>
+      <Navbar fixedTop={true}>
         <Navbar.Header>
           <Navbar.Brand>
             <a href="#">Fate Assistant</a>
@@ -34,10 +34,19 @@ class MainFrame extends React.Component {
             <MenuItem eventKey={3.1}>Action</MenuItem>
             <MenuItem eventKey={3.2}>Another action</MenuItem>
             <MenuItem eventKey={3.3}>Something else here</MenuItem>
-            <MenuItem divider />
+            <MenuItem divider={true} />
             <MenuItem eventKey={3.4}>Separated link</MenuItem>
           </NavDropdown>
         </Nav>
+        <Navbar.Collapse>
+          
+          <Navbar.Text>
+            Logged in as: {this.props.master ? 'Keeper' : 'Observer'}. {'\xa0'}
+          </Navbar.Text>
+          <Navbar.Text pullRight={true}>
+            <LatencyDisplay />
+          </Navbar.Text>
+        </Navbar.Collapse>
       </Navbar>
     );
   }
@@ -46,11 +55,10 @@ class MainFrame extends React.Component {
     return (
       <div id="MainFrame">
         {this.navBar()}
-        {this.props.master ? 'Master App' : 'Slave App'}
         
         <Map master={this.props.master}/>
         <EireiFrame />
-        <LatencyDisplay />
+        
       </div>
     );
   }

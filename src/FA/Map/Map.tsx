@@ -22,6 +22,7 @@ interface MapState {
   Servants: Array<ServantData>;
   ServantLocations: Array<number>;
   highlighted: number;
+  expand: boolean;
 }
 
 interface Point {
@@ -55,6 +56,7 @@ class Map extends React.Component<MapProps, MapState> {
       Servants: [], 
       ServantLocations: [],
       highlighted: -1,
+      expand: true,
     };
     this.initialServants = this.initialServants.bind(this);
     this.pushChess = this.pushChess.bind(this);
@@ -206,16 +208,22 @@ class Map extends React.Component<MapProps, MapState> {
     }
 
     return (
-      //<Col xs={4}>
-        <Panel id="mapPanel" className="panel-modest" header="Real-time Map">
-          <div id="Map"> 
-            <img src={CampusMap} className="MapBackground" style={this.getStyle()}/>
-            {mapSections}
-            <br />
-          </div>
-          <span>{this.state.mouseX} , {this.state.mouseY}</span>
-        </Panel>
-      //</Col>
+      // <Col xs={4}>
+      <Panel 
+        id="mapPanel" 
+        className="panel-modest" 
+        header="Real-time Map" 
+        collapsible={true} 
+        expanded={this.state.expand}
+      >
+        <div id="Map">
+          <img src={CampusMap} className="MapBackground" style={this.getStyle()} />
+          {mapSections}
+          <br />
+        </div>
+        <span>{this.state.mouseX} , {this.state.mouseY}</span>
+      </Panel>
+      // </Col>
     );
   }
 }

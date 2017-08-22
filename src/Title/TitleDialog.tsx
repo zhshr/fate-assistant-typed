@@ -21,9 +21,9 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
     }
 
     characterSelectionContent(step: number) {
-        let className = "modalBody";
-        if (step != 0) {
-            className += " myhide";
+        let className = 'modalBody';
+        if (step !== 0) {
+            className += ' myhide';
         }
         return (
             <Modal.Body className={className}>
@@ -38,16 +38,16 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
 
                     <ListGroupItem href="http://vps.acgn.us:3000">Developer</ListGroupItem>
 
-                    <ListGroupItem onClick={()=>this.onClick(1)}>test</ListGroupItem>
+                    <ListGroupItem onClick={() => this.onClick(1)}>test</ListGroupItem>
                 </ListGroup>
             </Modal.Body>
-        )
+        );
     }
 
     detailForm(step: number) {
-        let className = "modalBody";
-        if (step != 1) {
-            className += " hide";
+        let className = 'modalBody';
+        if (step !== 1) {
+            className += ' hide';
         }
         return (
             <Modal.Body className={className}>
@@ -76,7 +76,7 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
     }
 
     back() {
-        this.setState({step: this.state.step == 0 ? 0 : (this.state.step - 1)});
+        this.setState({step: this.state.step === 0 ? 0 : (this.state.step - 1)});
     }
     render() {
         return (
