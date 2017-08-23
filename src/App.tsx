@@ -1,25 +1,36 @@
 import * as React from 'react';
 import './App.css';
 import MainFrame from './FA/MainFrame';
-import {BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import TitleDialog from './Title/TitleDialog';
-import { Grid } from 'react-bootstrap';
+import AppBar from 'material-ui/AppBar';
+import FlatButton from 'material-ui/FlatButton';
+import Drawer from 'material-ui/Drawer';
+import IconButton from 'material-ui/IconButton';
+import GridList from 'material-ui/GridList';
+// import FontIcon from 'material-ui/FontIcon';
 
-class App extends React.Component<{}, {}> {
-  state: {
-    value: string;
-  };
+//import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
+
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+interface AppState {
+  drawerOpened: boolean;
+}
+class App extends React.Component<{}, AppState> {
 
   constructor() {
     super();
-    this.state = {value: '0'};
+    this.state = {
+      drawerOpened: false,
+    };
+
     this.masterComponent = this.masterComponent.bind(this);
     this.slaveComponent = this.slaveComponent.bind(this);
-    this.onChange = this.onChange.bind(this);
   }
 
-  onChange(newValue: string) {
-    this.state.value = newValue;
+  onChange() {
+    //
   }
 
   titleComponent() {
@@ -28,26 +39,74 @@ class App extends React.Component<{}, {}> {
     );
   }
 
-  masterComponent() {
+  // tslint:disable-next-line:member-ordering
+  static gridWrapper(elements: Array<JSX.Element>) {
     return (
-      <MainFrame value={this.state.value} onChange={this.onChange} master={true}/>
+      <GridList
+        cols={10}
+        cellHeight={100}
+        padding={0}
+        style={{ width: '1000px', height: '600px' }}
+      >
+        {elements}
+      </GridList>
     );
   }
-  
+
+  masterComponent() {
+    return (
+      <MainFrame onChange={this.onChange} master={true} />
+    );
+  }
+
+  // slaveComponent() {
+  //   return (
+  //     <MainFrame onChange={this.onChange} master={false} />
+  //   );
+  // }
   slaveComponent() {
     return (
-      <MainFrame value={this.state.value} onChange={this.onChange} master={false}/>
+      <div />
+    );
+  }
+  appBarRight() {
+    return (
+      <div>
+        <FlatButton label="Button1" />
+        <FlatButton label="Button2" />
+      </div>
+    );
+  }
+  appBarLeft() {
+    return (
+      <IconButton iconClassName="material-menu" />
     );
   }
   render() {
     return (
-      <Router>
-        <Grid id="Container">
-            <Route exact={true} path="/" component={this.titleComponent}/>
-            <Route path="/master" component={this.masterComponent}/>
-            <Route path="/slave" component={this.slaveComponent}/>
-        </Grid>
-      </Router>
+
+      <MuiThemeProvider>
+        <Router>
+          <div>
+            <AppBar
+              title="Title"
+              onLeftIconButtonTouchTap={() => this.setState({ drawerOpened: !this.state.drawerOpened })}
+              iconElementRight={this.appBarRight()}
+            />
+            <Drawer
+              docked={false}
+              open={this.state.drawerOpened}
+              onRequestChange={(open) => this.setState({ drawerOpened: open })}
+            >
+              abcdefg
+            </Drawer>
+            <Route exact={true} path="/" component={this.titleComponent} />
+            <Route path="/master" component={this.masterComponent} />
+            <Route path="/slave" component={this.slaveComponent} />
+          </div>
+
+        </Router>
+      </MuiThemeProvider> 
     );
   }
 }

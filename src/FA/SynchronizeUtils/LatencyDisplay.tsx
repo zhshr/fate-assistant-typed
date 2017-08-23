@@ -9,7 +9,6 @@ interface LatencyDisplayState {
 }
 
 class LatencyDisplay extends React.Component<LatencyDisplayProps, LatencyDisplayState> {
-    
     constructor() {
         super();
         this.state = {latency: 0};

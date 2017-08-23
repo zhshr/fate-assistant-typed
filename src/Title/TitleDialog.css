@@ -8,3 +8,7 @@ div.modalBody.myhide {
     pointer-events:none;
     display: none;
 }
+
+div.width800 {
+    width: 800px; 
+}

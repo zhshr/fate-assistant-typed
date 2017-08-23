@@ -14,7 +14,6 @@ class MainFrame extends React.Component {
   };
 
   props: {
-    value: string;
     onChange: (value: string) => void;
     master: boolean;
   };
