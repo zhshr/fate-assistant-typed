@@ -6,14 +6,22 @@ import TitleDialog from './Title/TitleDialog';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import Drawer from 'material-ui/Drawer';
-import IconButton from 'material-ui/IconButton';
 import GridList from 'material-ui/GridList';
 // import FontIcon from 'material-ui/FontIcon';
+import { ToolbarGroup} from 'material-ui/Toolbar';
+import MenuItem from 'material-ui/MenuItem';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import IconButton from 'material-ui/IconButton';
 
-//import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
+
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {green50} from 'material-ui/styles/colors';
 
+const muiTheme = getMuiTheme({
+  fontFamily: "微软雅黑",
+});
 interface AppState {
   drawerOpened: boolean;
 }
@@ -40,16 +48,22 @@ class App extends React.Component<{}, AppState> {
   }
 
   // tslint:disable-next-line:member-ordering
-  static gridWrapper(elements: Array<JSX.Element>) {
+  static defaultGridWrapper(elements: Array<JSX.Element>) {
+    return App.gridWrapper(50, 50, 32,20, elements);
+  }
+
+  static gridWrapper(cellWidth: number, cellHeight: number, columnCount: number, rowCount: number, elements: Array<JSX.Element>) {
     return (
-      <GridList
-        cols={10}
-        cellHeight={100}
-        padding={0}
-        style={{ width: '1000px', height: '600px' }}
-      >
-        {elements}
-      </GridList>
+      <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
+        <GridList
+          cols={columnCount}
+          cellHeight={cellHeight}
+          padding = {0}
+          style={{ width: cellWidth * columnCount + 'px', height: cellHeight * rowCount + 'px', overflowY: 'auto'}}
+        >
+          {elements}
+        </GridList>
+      </div>
     );
   }
 
@@ -70,11 +84,21 @@ class App extends React.Component<{}, AppState> {
     );
   }
   appBarRight() {
+    let buttonStyle = {
+      backgroundColor: 'transparent',
+      color: 'white'
+    }
     return (
       <div>
-        <FlatButton label="Button1" />
-        <FlatButton label="Button2" />
+        <FlatButton label="Button1" style={buttonStyle}/>
+        <FlatButton label="Button2" style={buttonStyle}/>
       </div>
+    );
+  }
+
+  appBarRight2() {
+    return (
+      <FlatButton label="Button1"/>
     );
   }
   appBarLeft() {
@@ -82,16 +106,33 @@ class App extends React.Component<{}, AppState> {
       <IconButton iconClassName="material-menu" />
     );
   }
+  appBarTitle() {
+    return (
+        <ToolbarGroup firstChild={true}>
+          <DropDownMenu >
+            <MenuItem value={1} primaryText="All Broadcasts" />
+            <MenuItem value={2} primaryText="All Voice" />
+            <MenuItem value={3} primaryText="All Text" />
+            <MenuItem value={4} primaryText="Complete Voice" />
+            <MenuItem value={5} primaryText="Complete Text" />
+            <MenuItem value={6} primaryText="Active Voice" />
+            <MenuItem value={7} primaryText="Active Text" />
+          </DropDownMenu>
+        </ToolbarGroup>
+        
+    );
+  }
   render() {
+    let containerStyle = {height: "100vh", width: "100vw", backgroundColor: green50};
     return (
 
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={muiTheme}>
         <Router>
-          <div>
+          <div style={containerStyle}>
             <AppBar
-              title="Title"
+              title={this.appBarTitle()}
               onLeftIconButtonTouchTap={() => this.setState({ drawerOpened: !this.state.drawerOpened })}
-              iconElementRight={this.appBarRight()}
+              iconElementRight={this.appBarRight2()}
             />
             <Drawer
               docked={false}
