@@ -1,10 +1,12 @@
 import * as React from 'react';
 // import './MainFrame.css';
-import EireiFrame from './Eirei/EireiFrame';
+// import EireiFrame from './Eirei/EireiFrame';
 import * as EireiData from './Eirei/EireiData/EireiData';
 import Map from './Map/Map';
 import LatencyDisplay from './SynchronizeUtils/LatencyDisplay';
 import { AppState } from '../App';
+import RenderHelper from './RenderHelper';
+import { GridTile } from 'material-ui/GridList';
 
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 
@@ -53,16 +55,17 @@ class MainFrame extends React.Component {
   }
 
   render() {
-    return (
-      <div id="MainFrame">
-        //{this.navBar()}
-        
-        <Map master={this.props.master}/>
-        {this.props.masterKey}
-        <EireiFrame />
-        
-      </div>
+    let components = [];
+    // components.push(
+    //   (RenderHelper.gridTileWrapper(
+    //     10, 10, 5, [(<Map master={this.props.master} />)]
+    //   )
+    // ));
+    components.push(
+      RenderHelper.gridTileWrapper(
+      12, 12, 5, [(<Map master={this.props.master} />)])
     );
+    return RenderHelper.defaultGridWrapper(components);       
   }
 }
 

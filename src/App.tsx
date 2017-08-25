@@ -1,26 +1,23 @@
 import * as React from 'react';
 import './App.css';
 import MainFrame from './FA/MainFrame';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import TitleDialog from './Title/TitleDialog';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import TitleDialog from './FA/Title/TitleDialog';
 import AppBar from 'material-ui/AppBar';
 import FlatButton from 'material-ui/FlatButton';
 import Drawer from 'material-ui/Drawer';
-import GridList from 'material-ui/GridList';
 // import FontIcon from 'material-ui/FontIcon';
-import { ToolbarGroup} from 'material-ui/Toolbar';
+import { ToolbarGroup } from 'material-ui/Toolbar';
 import MenuItem from 'material-ui/MenuItem';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import IconButton from 'material-ui/IconButton';
 
-
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {green50} from 'material-ui/styles/colors';
+import { green50 } from 'material-ui/styles/colors';
 
 const muiTheme = getMuiTheme({
-  fontFamily: "微软雅黑",
+  fontFamily: '微软雅黑',
 });
 
 export interface AppState {
@@ -53,33 +50,15 @@ export class App extends React.Component<{}, AppState> {
     );
   }
 
-  // tslint:disable-next-line:member-ordering
-  static defaultGridWrapper(elements: Array<JSX.Element>) {
-    return App.gridWrapper(50, 50, 32,20, elements);
-  }
-
-  static gridWrapper(cellWidth: number, cellHeight: number, columnCount: number, rowCount: number, elements: Array<JSX.Element>) {
-    return (
-      <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around'}}>
-        <GridList
-          cols={columnCount}
-          cellHeight={cellHeight}
-          padding = {0}
-          style={{ width: cellWidth * columnCount + 'px', height: cellHeight * rowCount + 'px', overflowY: 'visible'}}
-        >
-          {elements}
-        </GridList>
-      </div>
-    );
-  }
-
   masterComponent() {
     if (this.state.masterKey) {
       return (
         <MainFrame onChange={this.onChange} master={true} masterKey={this.state.masterKey}/>
       );
     } else {
-      return (<div />);
+      return (
+        <Redirect to="/" />
+      );
     }
   }
 
@@ -97,7 +76,7 @@ export class App extends React.Component<{}, AppState> {
     let buttonStyle = {
       backgroundColor: 'transparent',
       color: 'white'
-    }
+    };
     return (
       <div>
         <FlatButton label="Button1" style={buttonStyle}/>
@@ -133,7 +112,7 @@ export class App extends React.Component<{}, AppState> {
     );
   }
   render() {
-    let containerStyle = {height: "100vh", width: "100vw", backgroundColor: green50};
+    let containerStyle = {height: '100vh', width: '100vw', backgroundColor: green50};
     return (
 
       <MuiThemeProvider muiTheme={muiTheme}>

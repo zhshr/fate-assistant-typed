@@ -2,7 +2,11 @@ import * as React from 'react';
 import './Map.css';
 import MapSection from './MapSection';
 import ServantData from './ServantData';
-import {  Panel } from 'react-bootstrap';
+import RenderHelper from '../RenderHelper';
+import { Card, CardHeader, CardMedia } from 'material-ui/Card';
+
+import { Paper } from 'material-ui';
+import { GridList, GridTile } from 'material-ui/GridList';
 
 import SynchronizeUtils from '../SynchronizeUtils/SynchronizeUtils';
 
@@ -177,8 +181,8 @@ class Map extends React.Component<MapProps, MapState> {
 
   getStyle(): React.CSSProperties {
     return {
-      width: mapScaleFactor * 500 + 'px',
-      height: mapScaleFactor * 500 + 'px',
+      // width: mapScaleFactor * 500 + 'px',
+      // height: mapScaleFactor * 500 + 'px',
     };
   }
 
@@ -206,25 +210,17 @@ class Map extends React.Component<MapProps, MapState> {
         />
       );
     }
-
-    return (
-      // <Col xs={4}>
-      <Panel 
-        id="mapPanel" 
-        className="panel-modest" 
-        header="Real-time Map" 
-        collapsible={true} 
-        expanded={this.state.expand}
-      >
-        <div id="Map">
+    let test = (
+      <Card style={{marginLeft: 'auto', marginRight: 'auto'}}>
+        <CardHeader title="Interactive Map"/>
+        <CardMedia>
           <img src={CampusMap} className="MapBackground" style={this.getStyle()} />
           {mapSections}
-          <br />
-        </div>
-        <span>{this.state.mouseX} , {this.state.mouseY}</span>
-      </Panel>
-      // </Col>
+        </CardMedia>
+      </Card>
     );
+
+    return test;
   }
 }
 

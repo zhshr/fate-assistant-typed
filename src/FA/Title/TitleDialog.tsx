@@ -1,22 +1,22 @@
 import * as React from 'react';
 // import { Link } from 'react-router-dom';
- import { LinkContainer } from 'react-router-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import './TitleDialog.css';
+import RenderHelper from '../RenderHelper';
 
-import { GridTile } from 'material-ui/GridList';
 import { Card, CardHeader, CardMedia } from 'material-ui/Card';
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
-//import FlatButton from 'material-ui/FlatButton';
+// import FlatButton from 'material-ui/FlatButton';
 
 import {
     Step,
     Stepper,
     StepLabel,
-  } from 'material-ui/Stepper';
+} from 'material-ui/Stepper';
 
-import { App, AppState } from '../App';
-import { List, ListItem, Divider, RaisedButton, Paper, FlatButton } from "material-ui";
-import { ActionRecordVoiceOver, HardwareComputer, HardwareHeadset, HardwareMemory } from "material-ui/svg-icons";
+import { AppState } from '../../App';
+import { List, ListItem, Divider, RaisedButton, FlatButton } from 'material-ui';
+import { ActionRecordVoiceOver, HardwareComputer, HardwareHeadset, HardwareMemory } from 'material-ui/svg-icons';
 
 enum Character {
     KP = 1,
@@ -25,8 +25,8 @@ enum Character {
     Developer = 4,
 }
 
-interface TitleDialogProps { 
-    onChange: (value: Partial<AppState>) => void,
+interface TitleDialogProps {
+    onChange: (value: Partial<AppState>) => void;
 }
 interface TitleDialogState {
     step: number;
@@ -51,11 +51,11 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
         // this.modalBody2 = this.modalBody2.bind(this);
     }
 
-    dummyAsync = (cb: ()=>void ) => {
+    dummyAsync = (cb: () => void) => {
         this.setState({ loading: true }, () => {
             setTimeout(cb, 500);
         });
-    };
+    }
 
     onClick(value: number) {
         this.setState({ step: value });
@@ -63,25 +63,27 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
 
     handleNext() {
         let current = this.state.step;
-        this.dummyAsync(()=>{
-            this.setState({loading: false, step: current + 1});
+        this.dummyAsync(() => {
+            this.setState({ loading: false, step: current + 1 });
         });
     }
 
     handleStepOne(char: Character) {
         switch (char) {
             case Character.KP:
-                this.props.onChange({masterKey: "testKey"});
+                this.props.onChange({ masterKey: 'testKey' });
+                break;
+            default:
         }
-        this.dummyAsync(()=>{
-            this.setState({loading: false, step: 1, role: char});
+        this.dummyAsync(() => {
+            this.setState({ loading: false, step: 1, role: char });
         });
     }
 
     handlePrev() {
         let current = this.state.step;
-        this.dummyAsync(()=>{
-            this.setState({loading: false, step: current - 1});
+        this.dummyAsync(() => {
+            this.setState({ loading: false, step: current - 1 });
         });
     }
 
@@ -92,10 +94,12 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
     }
 
     getThirdPageBasedOnCharacter() {
-        let path = "";
+        let path = '';
         switch (this.state.role) {
             case Character.KP:
-                path = "/master";
+                path = '/master';
+                break;
+            default:
         }
         return (
             <div>
@@ -107,21 +111,38 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
     }
 
     getStepContent(stepIndex: number) {
+        let stepOne = (
+            <List>
+                <Divider />
+                <ListItem
+                    primaryText="我是游戏的中心——KP！"
+                    leftIcon={<HardwareMemory />}
+                    onClick={() => this.handleStepOne(Character.KP)}
+                />
+                <Divider />
+                <ListItem
+                    primaryText="我是激情参战的MASTER"
+                    leftIcon={<ActionRecordVoiceOver />}
+                    onClick={() => this.handleStepOne(Character.Master)}
+                />
+                <Divider />
+                <ListItem
+                    primaryText="我是默默围观的OB"
+                    leftIcon={<HardwareHeadset />}
+                    onClick={() => this.handleStepOne(Character.Observer)}
+                />
+                <Divider />
+                <ListItem
+                    primaryText="我是黑幕开发组......"
+                    leftIcon={<HardwareComputer />}
+                    onClick={() => this.handleStepOne(Character.Developer)}
+                />
+                <Divider />
+            </List>
+        );
         switch (stepIndex) {
             case 0:
-                return (
-                    <List>
-                        <Divider />
-                        <ListItem primaryText="我是游戏的中心——KP！" leftIcon={<HardwareMemory />} onClick={()=>this.handleStepOne(Character.KP)}/>
-                        <Divider />
-                        <ListItem primaryText="我是激情参战的MASTER" leftIcon={<ActionRecordVoiceOver/>} onClick={()=>this.handleStepOne(Character.Master)} />
-                        <Divider />
-                        <ListItem primaryText="我是默默围观的OB" leftIcon={<HardwareHeadset/>} onClick={()=>this.handleStepOne(Character.Observer)} />
-                        <Divider />
-                        <ListItem primaryText="我是黑幕开发组......" leftIcon={<HardwareComputer/>} onClick={()=>this.handleStepOne(Character.Developer)} />
-                        <Divider />
-                    </List>
-                );
+                return stepOne;
             case 1:
                 return this.getSecondPageBasedOnCharacter();
             case 2:
@@ -129,7 +150,7 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
             default:
                 return (<p>default</p>);
         }
-        
+
     }
 
     getStepper() {
@@ -158,7 +179,7 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
                         <FlatButton
                             label="Back"
                             onClick={this.handlePrev}
-                            style={{marginRight: 12}}
+                            style={{ marginRight: 12 }}
                         />
                         <RaisedButton
                             label={step === 2 ? 'Finish' : 'Next'}
@@ -173,7 +194,7 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
                         <FlatButton
                             label="Back"
                             onClick={this.handlePrev}
-                            style={{marginRight: 12}}
+                            style={{ marginRight: 12 }}
                         />
                         <RaisedButton
                             label={step === 2 ? 'Finish' : 'Next'}
@@ -182,7 +203,7 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
                         />
                     </div>
                 );
-            default: 
+            default:
                 return (<div />);
         }
     }
@@ -190,7 +211,7 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
     getExpansion() {
         return (
             <ExpandTransition loading={this.state.loading} open={true}>
-                <div style={{margin: '0 16px', overflow: 'hidden'}}>
+                <div style={{ margin: '0 16px', overflow: 'hidden' }}>
                     {this.getStepContent(this.state.step)}
                     {this.getFooterButtons(this.state.step)}
                 </div>
@@ -200,34 +221,35 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
 
     getAdditional() {
         return (
-            <RaisedButton primary={true} onClick={this.handleNext}/>
+            <RaisedButton primary={true} onClick={this.handleNext} />
         );
     }
 
     renderDialog() {
-        return (
-            <GridTile cols={1} rows={1} style={{ padding: "5px", overflow: 'visible'}}>
-                <Paper zDepth={5}>
-                <Card >
+        return RenderHelper.gridTileWrapper(
+            1, 
+            1, 
+            5,
+            [(            
+                <Card>
                     <CardHeader
                         title="角色选择"
-                        //subtitle="Subtitle"
+                        // subtitle="Subtitle"
                         actAsExpander={false}
                         showExpandableButton={false}
                     />
-                    <CardMedia expandable={false} style={{padding: "10px"}}>
+                    <CardMedia expandable={false} style={{ padding: '10px' }}>
                         {this.getStepper()}
                         {this.getExpansion()}
                         {/* {this.getAdditional()} */}
                     </CardMedia>
                 </Card>
-                </Paper>
-            </GridTile>
+            )]
         );
     }
-    
+
     render() {
-        return App.gridWrapper(800,500,1,1,[this.renderDialog()]);
+        return RenderHelper.gridWrapper(800, 500, 1, 1, [this.renderDialog()]);
     }
 }
 
