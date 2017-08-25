@@ -1,175 +1,234 @@
 import * as React from 'react';
 // import { Link } from 'react-router-dom';
-// import { LinkContainer } from 'react-router-bootstrap';
+ import { LinkContainer } from 'react-router-bootstrap';
 import './TitleDialog.css';
-// import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
-// import FlatButton from 'material-ui/FlatButton';
 
 import { GridTile } from 'material-ui/GridList';
-import { Card, CardHeader, CardText, CardActions } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import { Card, CardHeader, CardMedia } from 'material-ui/Card';
+import ExpandTransition from 'material-ui/internal/ExpandTransition';
+//import FlatButton from 'material-ui/FlatButton';
 
-import App from '../App';
+import {
+    Step,
+    Stepper,
+    StepLabel,
+  } from 'material-ui/Stepper';
 
-interface TitleDialogProps { }
+import { App, AppState } from '../App';
+import { List, ListItem, Divider, RaisedButton, Paper, FlatButton } from "material-ui";
+import { ActionRecordVoiceOver, HardwareComputer, HardwareHeadset, HardwareMemory } from "material-ui/svg-icons";
+
+enum Character {
+    KP = 1,
+    Master = 2,
+    Observer = 3,
+    Developer = 4,
+}
+
+interface TitleDialogProps { 
+    onChange: (value: Partial<AppState>) => void,
+}
 interface TitleDialogState {
     step: number;
+    isOpened?: boolean;
+    loading?: boolean;
+    role?: Character;
 }
 class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
 
     constructor() {
         super();
-        this.state = { step: 0 };
+        this.state = { step: 0, isOpened: false };
+        this.getExpansion = this.getExpansion.bind(this);
+        this.getAdditional = this.getAdditional.bind(this);
+        this.handleNext = this.handleNext.bind(this);
+        this.handlePrev = this.handlePrev.bind(this);
+
+        this.getThirdPageBasedOnCharacter = this.getThirdPageBasedOnCharacter.bind(this);
+
+        this.dummyAsync = this.dummyAsync.bind(this);
         // this.back = this.back.bind(this);
         // this.modalBody2 = this.modalBody2.bind(this);
     }
+
+    dummyAsync = (cb: ()=>void ) => {
+        this.setState({ loading: true }, () => {
+            setTimeout(cb, 500);
+        });
+    };
+
     onClick(value: number) {
         this.setState({ step: value });
     }
 
-    // characterSelectionContent(step: number) {
-    //     let className = 'modalBody';
-    //     if (step !== 0) {
-    //         className += ' myhide';
-    //     }
-    //     return (
-    //         <Modal.Body className={className}>
-    //             <ListGroup>
-    //                 <LinkContainer to="/master">
-    //                     <ListGroupItem>KP</ListGroupItem>
-    //                 </LinkContainer>
+    handleNext() {
+        let current = this.state.step;
+        this.dummyAsync(()=>{
+            this.setState({loading: false, step: current + 1});
+        });
+    }
 
-    //                 <LinkContainer to="/slave">
-    //                     <ListGroupItem>OB</ListGroupItem>
-    //                 </LinkContainer>
+    handleStepOne(char: Character) {
+        switch (char) {
+            case Character.KP:
+                this.props.onChange({masterKey: "testKey"});
+        }
+        this.dummyAsync(()=>{
+            this.setState({loading: false, step: 1, role: char});
+        });
+    }
 
-    //                 <ListGroupItem href="http://vps.acgn.us:3000">Developer</ListGroupItem>
+    handlePrev() {
+        let current = this.state.step;
+        this.dummyAsync(()=>{
+            this.setState({loading: false, step: current - 1});
+        });
+    }
 
-    //                 <ListGroupItem onClick={() => this.onClick(1)}>test</ListGroupItem>
-    //             </ListGroup>
-    //         </Modal.Body>
-    //     );
-    // }
-
-    // detailForm(step: number) {
-    //     let className = 'modalBody';
-    //     if (step !== 1) {
-    //         className += ' hide';
-    //     }
-    //     return (
-    //         <Modal.Body className={className}>
-    //             abc
-    //         </Modal.Body>
-    //     );
-    // }
-    // modalBody() {
-    //     switch (this.state.step) {
-    //         case 0:
-    //             return this.characterSelectionContent();
-    //         case 1:
-    //             return this.detailForm();
-    //     }
-    //     return (
-    //         <Modal.Body>
-    //         </Modal.Body>
-    //     );
-    // }
-
-    // modalBody2() {
-    //     let modalBodys = [];
-    //     modalBodys.push(this.characterSelectionContent(this.state.step));
-    //     modalBodys.push(this.detailForm(this.state.step));
-    //     return modalBodys;
-    // }
-
-    // back() {
-    //     this.setState({step: this.state.step === 0 ? 0 : (this.state.step - 1)});
-    // }
-    // render() {
-    //     return (
-    //         <div className="width800">
-    //             <Card>
-    //                 <CardHeader
-    //                     title="Without Avatar"
-    //                     subtitle="Subtitle"
-    //                     actAsExpander={true}
-    //                     showExpandableButton={true}
-    //                 />
-    //                 <CardActions>
-    //                     <FlatButton label="Action1" />
-    //                     <FlatButton label="Action2" />
-    //                 </CardActions>
-    //                 <CardText expandable={true}>
-    //                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    //             Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-    //             Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-    //             Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-    //             </CardText>
-    //             </Card>
-    //         </div>
-    //     );
-    // }
-
-    render() {
-        return App.gridWrapper([
-        (
-            <GridTile cols={5} rows={2}>
-                <Card>
-                    <CardHeader
-                        title="Without Avatar"
-                        subtitle="Subtitle"
-                        actAsExpander={true}
-                        showExpandableButton={true}
-                    />
-                    <CardActions>
-                        <FlatButton label="Action1" />
-                        <FlatButton label="Action2" />
-                    </CardActions>
-                    <CardText expandable={true}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-                        Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-                        Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
-                        </CardText>
-                </Card>
-            </GridTile>)]
+    getSecondPageBasedOnCharacter() {
+        return (
+            <div />
         );
     }
 
-    // render3() {
-    //     return (
-    //         <div className="static-modal">
-    //             <Modal.Dialog>
-    //                 <Modal.Header>
-    //                     <Modal.Title>选择你的角色</Modal.Title>
-    //                 </Modal.Header>
+    getThirdPageBasedOnCharacter() {
+        let path = "";
+        switch (this.state.role) {
+            case Character.KP:
+                path = "/master";
+        }
+        return (
+            <div>
+                <LinkContainer to={path}>
+                    <FlatButton label="back" />
+                </LinkContainer>
+            </div>
+        );
+    }
 
-    //                 {this.modalBody2()}
+    getStepContent(stepIndex: number) {
+        switch (stepIndex) {
+            case 0:
+                return (
+                    <List>
+                        <Divider />
+                        <ListItem primaryText="我是游戏的中心——KP！" leftIcon={<HardwareMemory />} onClick={()=>this.handleStepOne(Character.KP)}/>
+                        <Divider />
+                        <ListItem primaryText="我是激情参战的MASTER" leftIcon={<ActionRecordVoiceOver/>} onClick={()=>this.handleStepOne(Character.Master)} />
+                        <Divider />
+                        <ListItem primaryText="我是默默围观的OB" leftIcon={<HardwareHeadset/>} onClick={()=>this.handleStepOne(Character.Observer)} />
+                        <Divider />
+                        <ListItem primaryText="我是黑幕开发组......" leftIcon={<HardwareComputer/>} onClick={()=>this.handleStepOne(Character.Developer)} />
+                        <Divider />
+                    </List>
+                );
+            case 1:
+                return this.getSecondPageBasedOnCharacter();
+            case 2:
+                return this.getThirdPageBasedOnCharacter();
+            default:
+                return (<p>default</p>);
+        }
+        
+    }
 
-    //                 <Modal.Footer>
-    //                     <Button onClick={this.back}>Back</Button>
-    //                     <Button bsStyle="primary">Save changes</Button>
-    //                 </Modal.Footer>
+    getStepper() {
+        return (
+            <Stepper activeStep={this.state.step}>
+                <Step>
+                    <StepLabel>Select your character</StepLabel>
+                </Step>
+                <Step>
+                    <StepLabel>Create/Enter Crendential</StepLabel>
+                </Step>
+                <Step>
+                    <StepLabel>Create an ad</StepLabel>
+                </Step>
+            </Stepper>
+        );
+    }
 
-    //             </Modal.Dialog>
-    //         </div>
-    //     );
-    // }
-    // render2() {
-    //     return (
-    //         <Col xs={4} xsOffset={4}>
-    //             <Link to="/master">
-    //                 Master
-    //             </Link>
-    //             <Link to="/slave">
-    //                 slave
-    //             </Link>
-    //             <Link to="/developer">
-    //                 developer
-    //             </Link>
-    //         </Col>
-    //     );
-    // }
+    getFooterButtons(step: Number) {
+        switch (step) {
+            case 0:
+                return (<div />);
+            case 1:
+                return (
+                    <div>
+                        <FlatButton
+                            label="Back"
+                            onClick={this.handlePrev}
+                            style={{marginRight: 12}}
+                        />
+                        <RaisedButton
+                            label={step === 2 ? 'Finish' : 'Next'}
+                            primary={true}
+                            onClick={this.handleNext}
+                        />
+                    </div>
+                );
+            case 2:
+                return (
+                    <div>
+                        <FlatButton
+                            label="Back"
+                            onClick={this.handlePrev}
+                            style={{marginRight: 12}}
+                        />
+                        <RaisedButton
+                            label={step === 2 ? 'Finish' : 'Next'}
+                            primary={true}
+                            onClick={this.handleNext}
+                        />
+                    </div>
+                );
+            default: 
+                return (<div />);
+        }
+    }
+
+    getExpansion() {
+        return (
+            <ExpandTransition loading={this.state.loading} open={true}>
+                <div style={{margin: '0 16px', overflow: 'hidden'}}>
+                    {this.getStepContent(this.state.step)}
+                    {this.getFooterButtons(this.state.step)}
+                </div>
+            </ExpandTransition>
+        );
+    }
+
+    getAdditional() {
+        return (
+            <RaisedButton primary={true} onClick={this.handleNext}/>
+        );
+    }
+
+    renderDialog() {
+        return (
+            <GridTile cols={1} rows={1} style={{ padding: "5px", overflow: 'visible'}}>
+                <Paper zDepth={5}>
+                <Card >
+                    <CardHeader
+                        title="角色选择"
+                        //subtitle="Subtitle"
+                        actAsExpander={false}
+                        showExpandableButton={false}
+                    />
+                    <CardMedia expandable={false} style={{padding: "10px"}}>
+                        {this.getStepper()}
+                        {this.getExpansion()}
+                        {/* {this.getAdditional()} */}
+                    </CardMedia>
+                </Card>
+                </Paper>
+            </GridTile>
+        );
+    }
+    
+    render() {
+        return App.gridWrapper(800,500,1,1,[this.renderDialog()]);
+    }
 }
 
 export default TitleDialog;

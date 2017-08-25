@@ -22,10 +22,13 @@ import {green50} from 'material-ui/styles/colors';
 const muiTheme = getMuiTheme({
   fontFamily: "微软雅黑",
 });
-interface AppState {
+
+export interface AppState {
   drawerOpened: boolean;
+  masterKey?: string;
 }
-class App extends React.Component<{}, AppState> {
+
+export class App extends React.Component<{}, AppState> {
 
   constructor() {
     super();
@@ -33,17 +36,20 @@ class App extends React.Component<{}, AppState> {
       drawerOpened: false,
     };
 
+    this.titleComponent = this.titleComponent.bind(this);
     this.masterComponent = this.masterComponent.bind(this);
     this.slaveComponent = this.slaveComponent.bind(this);
+
+    this.onChange = this.onChange.bind(this);
   }
 
-  onChange() {
-    //
+  onChange(test: AppState) {
+    this.setState(test);
   }
 
   titleComponent() {
     return (
-      <TitleDialog />
+      <TitleDialog onChange={this.onChange}/>
     );
   }
 
@@ -59,7 +65,7 @@ class App extends React.Component<{}, AppState> {
           cols={columnCount}
           cellHeight={cellHeight}
           padding = {0}
-          style={{ width: cellWidth * columnCount + 'px', height: cellHeight * rowCount + 'px', overflowY: 'auto'}}
+          style={{ width: cellWidth * columnCount + 'px', height: cellHeight * rowCount + 'px', overflowY: 'visible'}}
         >
           {elements}
         </GridList>
@@ -68,9 +74,13 @@ class App extends React.Component<{}, AppState> {
   }
 
   masterComponent() {
-    return (
-      <MainFrame onChange={this.onChange} master={true} />
-    );
+    if (this.state.masterKey) {
+      return (
+        <MainFrame onChange={this.onChange} master={true} masterKey={this.state.masterKey}/>
+      );
+    } else {
+      return (<div />);
+    }
   }
 
   // slaveComponent() {

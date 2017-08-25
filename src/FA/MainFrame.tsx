@@ -4,6 +4,7 @@ import EireiFrame from './Eirei/EireiFrame';
 import * as EireiData from './Eirei/EireiData/EireiData';
 import Map from './Map/Map';
 import LatencyDisplay from './SynchronizeUtils/LatencyDisplay';
+import { AppState } from '../App';
 
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 
@@ -14,7 +15,8 @@ class MainFrame extends React.Component {
   };
 
   props: {
-    onChange: (value: string) => void;
+    onChange: (value: AppState) => void;
+    masterKey: string;
     master: boolean;
   };
 
@@ -53,9 +55,10 @@ class MainFrame extends React.Component {
   render() {
     return (
       <div id="MainFrame">
-        {this.navBar()}
+        //{this.navBar()}
         
         <Map master={this.props.master}/>
+        {this.props.masterKey}
         <EireiFrame />
         
       </div>
