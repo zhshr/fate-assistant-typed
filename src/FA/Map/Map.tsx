@@ -211,13 +211,10 @@ class Map extends React.Component<MapProps, MapState> {
       );
     }
     let test = (
-      <Card style={{marginLeft: 'auto', marginRight: 'auto'}}>
-        <CardHeader title="Interactive Map"/>
-        <CardMedia>
-          <img src={CampusMap} className="MapBackground" style={this.getStyle()} />
-          {mapSections}
-        </CardMedia>
-      </Card>
+      <div id="Map">
+        <img src={CampusMap} className="MapBackground" style={this.getStyle()} />
+        {mapSections}
+      </div>
     );
 
     return test;

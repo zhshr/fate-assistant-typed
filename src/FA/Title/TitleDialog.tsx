@@ -3,6 +3,7 @@ import * as React from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import './TitleDialog.css';
 import RenderHelper from '../RenderHelper';
+import Snackbar from 'material-ui/Snackbar';
 
 import { Card, CardHeader, CardMedia } from 'material-ui/Card';
 import ExpandTransition from 'material-ui/internal/ExpandTransition';
@@ -26,6 +27,7 @@ enum Character {
 }
 
 interface TitleDialogProps {
+    message?: string;
     onChange: (value: Partial<AppState>) => void;
 }
 interface TitleDialogState {
@@ -97,7 +99,7 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
         let path = '';
         switch (this.state.role) {
             case Character.KP:
-                path = '/master';
+                path = '/master/testKey';
                 break;
             default:
         }
@@ -226,6 +228,14 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
     }
 
     renderDialog() {
+        let snackBar = this.props.message !== undefined
+            ? (
+                <Snackbar
+                    autoHideDuration={4000}
+                    message={this.props.message}
+                    open={true}
+                />)
+            : <div />;
         return RenderHelper.gridTileWrapper(
             1, 
             1, 
@@ -244,7 +254,8 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
                         {/* {this.getAdditional()} */}
                     </CardMedia>
                 </Card>
-            )]
+            ),
+            snackBar]
         );
     }
 
