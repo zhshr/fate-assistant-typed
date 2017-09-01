@@ -1,28 +1,33 @@
 import * as React from 'react';
 import './App.css';
-import { MainFrame, MainFrameParams } from './FA/MainFrame';
+// import { MainFrame, MainFrameParams } from './FA/MainFrame';
 import { BrowserRouter as Router, Route, Redirect, match, Link, Switch } from 'react-router-dom';
-import TitleDialog from './FA/Title/TitleDialog';
-import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
+// import TitleDialog from './FA/Title/TitleDialog';
+import AppBar from 'material-ui/src/AppBar';
+// import FlatButton from 'material-ui/FlatButton';
 import Drawer from 'material-ui/Drawer';
 // import FontIcon from 'material-ui/FontIcon';
-import { ToolbarGroup } from 'material-ui/Toolbar';
-import MenuItem from 'material-ui/MenuItem';
-import DropDownMenu from 'material-ui/DropDownMenu';
+// import { ToolbarGroup } from 'material-ui/Toolbar';
+// import MenuItem from 'material-ui/MenuItem';
+// import DropDownMenu from 'material-ui/DropDownMenu';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import { green50 } from 'material-ui/styles/colors';
+import { MuiThemeProvider } from 'material-ui/styles';
+import { createMuiTheme } from 'material-ui/styles';
+import { green } from 'material-ui/colors/';
+
+import Icon from 'material-ui/Icon';
+import Button from 'material-ui/Button';
 
 import '../node_modules/react-grid-layout/css/styles.css';
 import '../node_modules/react-resizable/css/styles.css';
 
-const muiTheme = getMuiTheme({
+const muiTheme = createMuiTheme({
   fontFamily: '微软雅黑',
 });
+
+// const bg = green[50];
 
 export interface AppState {
   drawerOpened: boolean;
@@ -37,7 +42,7 @@ export class App extends React.Component<{}, AppState> {
       drawerOpened: false,
     };
 
-    this.titleComponent = this.titleComponent.bind(this);
+    // this.titleComponent = this.titleComponent.bind(this);
    // this.masterComponent = this.masterComponent.bind(this);
     this.slaveComponent = this.slaveComponent.bind(this);
 
@@ -49,11 +54,11 @@ export class App extends React.Component<{}, AppState> {
     this.setState(test);
   }
 
-  titleComponent() {
-    return (
-      <TitleDialog onChange={this.onChange}/>
-    );
-  }
+  // titleComponent() {
+  //   return (
+  //     <TitleDialog onChange={this.onChange}/>
+  //   );
+  // }
 
   // masterComponent(props?: MainFrameParams) {
   //   if (this.state.masterKey) {
@@ -89,48 +94,50 @@ export class App extends React.Component<{}, AppState> {
     };
     return (
       <div>
-        <FlatButton label="Button1" style={buttonStyle}/>
-        <FlatButton label="Button2" style={buttonStyle}/>
+        <Button style={buttonStyle}/>
+        <Button  style={buttonStyle}/>
       </div>
     );
   }
 
   appBarRight2() {
     return (
-      <FlatButton label="Button1"/>
+      <Button />
     );
   }
 
   appBarLeft() {
     return (
-      <IconButton iconClassName="material-menu" />
+      <IconButton>
+        <Icon>Delete</Icon>
+      </IconButton>
     );
   }
 
-  appBarTitle() {
-    return (
-        <ToolbarGroup firstChild={true}>
-          <DropDownMenu >
-            <MenuItem value={1} primaryText="All Broadcasts" />
-            <MenuItem value={2} primaryText="All Voice" />
-            <MenuItem value={3} primaryText="All Text" />
-            <MenuItem value={4} primaryText="Complete Voice" />
-            <MenuItem value={5} primaryText="Complete Text" />
-            <MenuItem value={6} primaryText="Active Voice" />
-            <MenuItem value={7} primaryText="Active Text" />
-          </DropDownMenu>
-        </ToolbarGroup>
+  // appBarTitle() {
+  //   return (
+  //       <ToolbarGroup firstChild={true}>
+  //         <DropDownMenu >
+  //           <MenuItem value={1} primaryText="All Broadcasts" />
+  //           <MenuItem value={2} primaryText="All Voice" />
+  //           <MenuItem value={3} primaryText="All Text" />
+  //           <MenuItem value={4} primaryText="Complete Voice" />
+  //           <MenuItem value={5} primaryText="Complete Text" />
+  //           <MenuItem value={6} primaryText="Active Voice" />
+  //           <MenuItem value={7} primaryText="Active Text" />
+  //         </DropDownMenu>
+  //       </ToolbarGroup>
         
-    );
-  }
+  //   );
+  // }
   render() {
-    let containerStyle = {height: '100vh', width: '100vw', backgroundColor: green50};
+    let containerStyle = {height: '100vh', width: '100vw', backgroundColor: 'red'};
     
     return (
-      <MuiThemeProvider muiTheme={muiTheme}>
+      <MuiThemeProvider theme={muiTheme}>
         <Router>
           <div style={containerStyle}>
-            <AppBar
+            {/* <AppBar
               title={this.appBarTitle()}
               onLeftIconButtonTouchTap={() => this.setState({ drawerOpened: !this.state.drawerOpened })}
               iconElementRight={this.appBarRight2()}
@@ -141,16 +148,16 @@ export class App extends React.Component<{}, AppState> {
               onRequestChange={(open) => this.setState({ drawerOpened: open })}
             >
               abcdefg
-            </Drawer>
+            </Drawer> */}
             <Switch>
-              <Route exact={true} path="/" component={this.titleComponent} />
-              <Route 
+              {/* <Route exact={true} path="/" component={this.titleComponent} /> */}
+              {/* <Route 
                 path="/master/:masterKey" 
                 component={
                   (props) => 
                     <MainFrame onChange={this.onChange} master={true} {...props} />
                 }
-              />
+              /> */}
               <Route path="/slave" component={this.slaveComponent} />
               <Route component={this.notFound}/>
             </Switch>

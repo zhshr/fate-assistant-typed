@@ -4,20 +4,23 @@ import { LinkContainer } from 'react-router-bootstrap';
 import './TitleDialog.css';
 import RenderHelper from '../RenderHelper';
 import Snackbar from 'material-ui/Snackbar';
+import Button from 'material-ui/Button';
+import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
+import Divider from 'material-ui/Divider';
 
-import { Card, CardHeader, CardMedia } from 'material-ui/Card';
-import ExpandTransition from 'material-ui/internal/ExpandTransition';
+import Card, { CardHeader, CardMedia } from 'material-ui/Card';
+// import ExpandTransition from 'material-ui/internal/ExpandTransition';
 // import FlatButton from 'material-ui/FlatButton';
 
-import {
-    Step,
-    Stepper,
-    StepLabel,
-} from 'material-ui/Stepper';
+// import {
+//     Step,
+//     Stepper,
+//     StepLabel,
+// } from 'material-ui/Stepper';
 
 import { AppState } from '../../App';
-import { List, ListItem, Divider, RaisedButton, FlatButton } from 'material-ui';
-import { ActionRecordVoiceOver, HardwareComputer, HardwareHeadset, HardwareMemory } from 'material-ui/svg-icons';
+// import { ActionRecordVoiceOver, HardwareComputer, HardwareHeadset, HardwareMemory } from 'material-ui/Icon';
+import Icon from 'material-ui/Icon';
 
 enum Character {
     KP = 1,
@@ -106,7 +109,7 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
         return (
             <div>
                 <LinkContainer to={path}>
-                    <FlatButton label="back" />
+                    <Button>Back</Button>
                 </LinkContainer>
             </div>
         );
@@ -116,29 +119,41 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
         let stepOne = (
             <List>
                 <Divider />
-                <ListItem
-                    primaryText="我是游戏的中心——KP！"
+                <ListItem>
                     leftIcon={<HardwareMemory />}
                     onClick={() => this.handleStepOne(Character.KP)}
-                />
+                    <ListItemIcon>
+                        <HardwareMemory />
+                    </ListItemIcon>
+                    <ListItemText primary="我是游戏的中心——KP"/>
+                </ListItem>
                 <Divider />
-                <ListItem
-                    primaryText="我是激情参战的MASTER"
-                    leftIcon={<ActionRecordVoiceOver />}
+                <ListItem>
+                    leftIcon={<HardwareMemory />}
                     onClick={() => this.handleStepOne(Character.Master)}
-                />
+                    <ListItemIcon>
+                        <ActionRecordVoiceOver />
+                    </ListItemIcon>
+                    <ListItemText primary="我是激情参战的MASTER"/>
+                </ListItem>
                 <Divider />
-                <ListItem
-                    primaryText="我是默默围观的OB"
-                    leftIcon={<HardwareHeadset />}
+                <ListItem>
+                    leftIcon={<HardwareMemory />}
                     onClick={() => this.handleStepOne(Character.Observer)}
-                />
+                    <ListItemIcon>
+                        <HardwareHeadset />
+                    </ListItemIcon>
+                    <ListItemText primary="我是默默围观的OB"/>
+                </ListItem>
                 <Divider />
-                <ListItem
-                    primaryText="我是黑幕开发组......"
-                    leftIcon={<HardwareComputer />}
+                <ListItem>
+                    leftIcon={<HardwareMemory />}
                     onClick={() => this.handleStepOne(Character.Developer)}
-                />
+                    <ListItemIcon>
+                        <HardwareComputer />
+                    </ListItemIcon>
+                    <ListItemText primary="我是黑幕开发组......"/>
+                </ListItem>
                 <Divider />
             </List>
         );
@@ -178,22 +193,24 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
             case 1:
                 return (
                     <div>
-                        <FlatButton
-                            label="Back"
-                            onClick={this.handlePrev}
-                            style={{ marginRight: 12 }}
-                        />
-                        <RaisedButton
-                            label={step === 2 ? 'Finish' : 'Next'}
-                            primary={true}
-                            onClick={this.handleNext}
-                        />
+                        <Button raised={true} color="primary" onClick={this.handlePrev}>
+                            Back
+                        </Button>
+                        <Button raised={true} onClick={this.handleNext}>
+                            {step === 2 ? 'Finish' : 'Next'}
+                        </Button> 
                     </div>
                 );
             case 2:
                 return (
                     <div>
-                        <FlatButton
+                        <Button raised={true} color="primary" onClick={this.handlePrev}>
+                            Back
+                        </Button>
+                        <Button raised={true} onClick={this.handleNext}>
+                            {step === 2 ? 'Finish' : 'Next'}
+                        </Button> 
+                        {/* <FlatButton
                             label="Back"
                             onClick={this.handlePrev}
                             style={{ marginRight: 12 }}
@@ -202,7 +219,7 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
                             label={step === 2 ? 'Finish' : 'Next'}
                             primary={true}
                             onClick={this.handleNext}
-                        />
+                        /> */}
                     </div>
                 );
             default:
@@ -223,39 +240,46 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
 
     getAdditional() {
         return (
-            <RaisedButton primary={true} onClick={this.handleNext} />
+            <Button color="primary" onClick={this.handleNext} />
         );
     }
 
     renderDialog() {
-        let snackBar = this.props.message !== undefined
-            ? (
-                <Snackbar
-                    autoHideDuration={4000}
-                    message={this.props.message}
-                    open={true}
-                />)
-            : <div />;
+        // let snackBar = this.props.message !== undefined
+        //     ? (
+        //         <Snackbar
+        //             autoHideDuration={4000}
+        //             message={this.props.message}
+        //             open={true}
+        //         />)
+        //     : <div />;
         return RenderHelper.gridTileWrapper(
             1, 
             1, 
             5,
-            [(            
-                <Card>
-                    <CardHeader
-                        title="角色选择"
-                        // subtitle="Subtitle"
-                        actAsExpander={false}
-                        showExpandableButton={false}
-                    />
-                    <CardMedia expandable={false} style={{ padding: '10px' }}>
-                        {this.getStepper()}
-                        {this.getExpansion()}
-                        {/* {this.getAdditional()} */}
-                    </CardMedia>
-                </Card>
-            ),
-            snackBar]
+            [
+                (            
+                    // <Card>
+                    //     <CardHeader
+                    //         title="角色选择"
+                    //         // subtitle="Subtitle"
+                    //         actAsExpander={false}
+                    //         showExpandableButton={false}
+                    //     />
+                    //     <CardMedia expandable={false} style={{ padding: '10px' }}>
+                    //         {this.getStepper()}
+                    //         {this.getExpansion()}
+                    //         {/* {this.getAdditional()} */}
+                    //     </CardMedia>
+                    // </Card>
+                    <Card>
+                        <CardHeader>
+                            Interactive Map
+                        </CardHeader>
+                    </Card>
+                ),
+               // snackBar
+            ]
         );
     }
 
