@@ -4,21 +4,36 @@ const port = 3002;
 
 var database = {};
 
+// /api/heartbeat
+// Url {
+//   protocol: null,
+//   slashes: null,
+//   auth: null,
+//   host: null,
+//   port: null,
+//   hostname: null,
+//   hash: null,
+//   search: '',
+//   query: {},
+//   pathname: '/api/heartbeat',
+//   path: '/api/heartbeat',
+//   href: '/api/heartbeat' }
+
 const requestHandler = (request, response) => {
-    console.log();
 
-    console.log(request.url);
-    console.log(request.method);
-
-    if (request.url == "/heartbeat") {
+    if (request.url == "/api/heartbeat") {
         response.end();
         return;
     }
     
+    console.log();
+
     var url_parts = url.parse(request.url, true);
     var query = url_parts.query;
 
-    switch (url_parts.pathname) {
+    var apiType = url_parts.pathname.replace(/^\/api/, '');
+    console.log(apiType, ' from ', request.connection.remoteAddress);
+    switch (apiType) {
         case '/pull':
             console.log("Response: " + database[query.dataName]);
             response.writeHead(200, {'Content-Type': 'text/html'});

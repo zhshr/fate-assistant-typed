@@ -19,18 +19,27 @@ class LatencyDisplay extends React.Component<LatencyDisplayProps, LatencyDisplay
 
     testLatency() {
         let tick = Date.now();
-        SynchronizeUtils.receive(
-            '/heartbeat',
-            (response) => {
+        SynchronizeUtils.heartbeat(
+            () => {
                 let tock = Date.now();
                 this.setState({
                     latency: (tock - tick),
                 });
                 setTimeout(this.testLatency, 2000);
-            },
-            (error) => {
-                setTimeout(this.testLatency, 2000);
-            });
+            }
+        );
+        // SynchronizeUtils.receive(
+        //     '/heartbeat',
+        //     (response) => {
+        //         let tock = Date.now();
+        //         this.setState({
+        //             latency: (tock - tick),
+        //         });
+        //         setTimeout(this.testLatency, 2000);
+        //     },
+        //     (error) => {
+        //         setTimeout(this.testLatency, 2000);
+        //     });
     }
 
     render() {
