@@ -3,8 +3,7 @@ import { AxiosResponse, AxiosError } from 'axios';
 
 class SynchronizeUtils {
     // static host = "http://zhshr-gpc.mynetgear.com:3002";
-    // static host = '/api';
-    static host = '.';
+    static host = process.env.NODE_ENV === 'production' ? '/api' : '.';
     static heartbeat(
         onAfter: () => void
     ) {
