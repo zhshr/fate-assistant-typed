@@ -91,7 +91,9 @@ class Map extends React.Component<MapProps, MapState> {
         );
         setTimeout(this.updateStateFromServer, 3000);
       },
-      () => {/**/}
+      (error) => {
+        setTimeout(this.updateStateFromServer, 3000);
+      }
     );
   }
 
