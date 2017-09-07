@@ -4,23 +4,23 @@ import { LinkContainer } from 'react-router-bootstrap';
 import './TitleDialog.css';
 import RenderHelper from '../RenderHelper';
 import Snackbar from 'material-ui/Snackbar';
-import Button from 'material-ui/Button';
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
+import Button from 'material-ui-next/Button';
+import List, { ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 
 import Card, { CardHeader, CardMedia } from 'material-ui/Card';
-// import ExpandTransition from 'material-ui/internal/ExpandTransition';
-// import FlatButton from 'material-ui/FlatButton';
+import ExpandTransition from 'material-ui/internal/ExpandTransition';
+import FlatButton from 'material-ui/FlatButton';
 
-// import {
-//     Step,
-//     Stepper,
-//     StepLabel,
-// } from 'material-ui/Stepper';
+import {
+    Step,
+    Stepper,
+    StepLabel,
+} from 'material-ui/Stepper';
 
 import { AppState } from '../../App';
-// import { ActionRecordVoiceOver, HardwareComputer, HardwareHeadset, HardwareMemory } from 'material-ui/Icon';
-import Icon from 'material-ui/Icon';
+import { ActionRecordVoiceOver, HardwareComputer, HardwareHeadset, HardwareMemory } from 'material-ui/svg-icons';
+import Icon from 'material-ui-next/Icon';
 
 enum Character {
     KP = 1,
@@ -119,41 +119,29 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
         let stepOne = (
             <List>
                 <Divider />
-                <ListItem>
+                <ListItem
                     leftIcon={<HardwareMemory />}
                     onClick={() => this.handleStepOne(Character.KP)}
-                    <ListItemIcon>
-                        <HardwareMemory />
-                    </ListItemIcon>
-                    <ListItemText primary="我是游戏的中心——KP"/>
-                </ListItem>
+                    primaryText="我是游戏的中心——KP"
+                />
                 <Divider />
-                <ListItem>
-                    leftIcon={<HardwareMemory />}
+                <ListItem
+                    leftIcon={<ActionRecordVoiceOver />}
                     onClick={() => this.handleStepOne(Character.Master)}
-                    <ListItemIcon>
-                        <ActionRecordVoiceOver />
-                    </ListItemIcon>
-                    <ListItemText primary="我是激情参战的MASTER"/>
-                </ListItem>
+                    primaryText="我是激情参战的MASTER"
+                />
                 <Divider />
-                <ListItem>
-                    leftIcon={<HardwareMemory />}
+                <ListItem
+                    leftIcon={<HardwareHeadset />}
                     onClick={() => this.handleStepOne(Character.Observer)}
-                    <ListItemIcon>
-                        <HardwareHeadset />
-                    </ListItemIcon>
-                    <ListItemText primary="我是默默围观的OB"/>
-                </ListItem>
+                    primaryText="我是默默围观的OB"
+                />
                 <Divider />
-                <ListItem>
-                    leftIcon={<HardwareMemory />}
+                <ListItem
+                    leftIcon={<HardwareComputer />}
                     onClick={() => this.handleStepOne(Character.Developer)}
-                    <ListItemIcon>
-                        <HardwareComputer />
-                    </ListItemIcon>
-                    <ListItemText primary="我是黑幕开发组......"/>
-                </ListItem>
+                    primaryText="我是黑幕开发组......"
+                />
                 <Divider />
             </List>
         );
@@ -259,24 +247,24 @@ class TitleDialog extends React.Component<TitleDialogProps, TitleDialogState> {
             5,
             [
                 (            
-                    // <Card>
-                    //     <CardHeader
-                    //         title="角色选择"
-                    //         // subtitle="Subtitle"
-                    //         actAsExpander={false}
-                    //         showExpandableButton={false}
-                    //     />
-                    //     <CardMedia expandable={false} style={{ padding: '10px' }}>
-                    //         {this.getStepper()}
-                    //         {this.getExpansion()}
-                    //         {/* {this.getAdditional()} */}
-                    //     </CardMedia>
-                    // </Card>
                     <Card>
-                        <CardHeader>
-                            Interactive Map
-                        </CardHeader>
+                        <CardHeader
+                            title="角色选择"
+                            // subtitle="Subtitle"
+                            actAsExpander={false}
+                            showExpandableButton={false}
+                        />
+                        <CardMedia expandable={false} style={{ padding: '10px' }}>
+                            {this.getStepper()}
+                            {this.getExpansion()}
+                            {/* {this.getAdditional()} */}
+                        </CardMedia>
                     </Card>
+                    // <Card>
+                    //     <CardHeader>
+                    //         Interactive Map
+                    //     </CardHeader>
+                    // </Card>
                 ),
                // snackBar
             ]
