@@ -2,7 +2,7 @@ import * as React from 'react';
 import './MainFrame.css';
 // import EireiFrame from './Eirei/EireiFrame';
 import * as EireiData from './Eirei/EireiData/EireiData';
-import Map from './Map/Map';
+import GameMap from './GameMap/GameMap';
 import LatencyDisplay from './SynchronizeUtils/LatencyDisplay';
 import { AppState } from '../App';
 import RenderHelper from './RenderHelper';
@@ -53,7 +53,7 @@ export class MainFrame extends React.Component<MainFrameProps, MainFrameState> {
           actAsExpander={true}
         />
         <CardMedia expandable={true}>
-          <Map master={true} />
+          <GameMap master={true} />
         </CardMedia>
       </Card>
     );

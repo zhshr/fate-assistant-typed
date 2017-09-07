@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ServantData from './ServantData';
 import Chess from './Chess';
-import './MapSection.css';
+import './GameMapSection.css';
 
 interface MapSectionProps {
     area_id: number;

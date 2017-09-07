@@ -1,6 +1,6 @@
 import * as React from 'react';
-import './Map.css';
-import MapSection from './MapSection';
+import './GameMap.css';
+import MapSection from './GameMapSection';
 import ServantData from './ServantData';
 import RenderHelper from '../RenderHelper';
 import { Card, CardHeader, CardMedia } from 'material-ui/Card';
