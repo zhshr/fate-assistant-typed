@@ -3,7 +3,18 @@ import { AxiosResponse, AxiosError } from 'axios';
 
 class SynchronizeUtils {
     // static host = "http://zhshr-gpc.mynetgear.com:3002";
-    static host = '';
+    static host = process.env.NODE_ENV === 'production' ? '/api' : '.';
+    static heartbeat(
+        onAfter: () => void
+    ) {
+        axios.get(
+            this.host + '/heartbeat'
+        ).then(
+            (response: AxiosResponse) => {onAfter(); }
+        ).catch(
+            (error: AxiosError) => {onAfter(); }
+        );
+    }
     static send(
         dataName: string,
         data: {}, 

@@ -30,5 +30,5 @@
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject"
   },
-  "proxy": "http://zhshr-gpc.mynetgear.com:3002"
+  "proxy": "http://localhost:3002/api"
 }
